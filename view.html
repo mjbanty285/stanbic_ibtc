@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stanbic IBTC - View Account</title>
+    <style>
+        /* CSS Reset and Variables */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary-blue: #0033a0;
+            --light-blue: #e6edf8;
+            --dark-gray: #333333;
+            --light-gray: #f4f6f9;
+            --border-color: #e0e0e0;
+            --success-green: #2e7d32;
+        }
+
+        body {
+            background-color: var(--light-gray);
+            color: var(--dark-gray);
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--primary-blue);
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+        }
+
+        .user-profile {
+            font-size: 14px;
+        }
+
+        /* Main Container Layout */
+        .container {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        /* Account Card Overview */
+        .account-card {
+            background: white;
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border-left: 5px solid var(--primary-blue);
+        }
+
+        .account-type {
+            font-size: 14px;
+            text-transform: uppercase;
+            color: #666;
+            margin-bottom: 5px;
+            letter-spacing: 1px;
+        }
+
+        .account-number {
+            font-size: 16px;
+            color: #444;
+            margin-bottom: 15px;
+        }
+
+        .balance-label {
+            font-size: 12px;
+            color: #777;
+        }
+
+        .balance-amount {
+            font-size: 32px;
+            font-weight: bold;
+            color: var(--primary-blue);
+            margin-top: 5px;
+        }
+
+        /* Transaction Section */
+        .transactions-section {
+            background: white;
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .section-title {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: var(--primary-blue);
+            border-bottom: 2px solid var(--light-blue);
+            padding-bottom: 10px;
+        }
+
+        /* Transaction List Layout */
+        .transaction-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .transaction-table th {
+            text-align: left;
+            padding: 12px;
+            background-color: var(--light-blue);
+            color: var(--primary-blue);
+            font-size: 14px;
+        }
+
+        .transaction-table td {
+            padding: 15px 12px;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 14px;
+        }
+
+        .transaction-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Utilities */
+        .credit {
+            color: var(--success-green);
+            font-weight: 600;
+        }
+
+        .debit {
+            color: #c62828;
+            font-weight: 600;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            .transaction-table th:nth-child(3),
+            .transaction-table td:nth-child(3) {
+                display: none;
+            }
+            .balance-amount {
+                font-size: 26px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Bank Header -->
+    <header>
+        <div class="logo">Stanbic IBTC</div>
+        <div class="user-profile">Welcome,</div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        
+        <!-- Account Summary Card -->
+        <div class="account-card">
+            <div class="account-type">CHQ - MaxVantage Account</div>
+            <div class="account-number">Account Number: 0076785488</div>
+            <div class="balance-label">Available Balance</div>
+            <div class="balance-amount">₦1,000,000,000.00</div>
+        </div>
+
+        <!-- Recent Transactions Panel -->
+        <div class="transactions-section">
+            <div class="section-title">Recent Transactions</div>
+            
+            <table class="transaction-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Description</th>
+                        <th>Type</th>
+                        <th class="text-right">Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>24 Aug 2026</td>
+                        <td>Mobile App Transfer to Access Bank</td>
+                        <td>credit</td>
+                        <td class="text-right credit">+₦1,000,000,000.00</td>
+                    </tr>
+                    <tr>
+                        <!-- <td>22 Aug 2026</td>
+                        <td>POS Purchase - Ebeano Supermarket</td>
+                        <td>Debit</td>
+                        <td class="text-right debit">-₦14,350.00</td>
+                    </tr>
+                    <tr>
+                        <td>20 Aug 2026</td>
+                        <td>Salary Payment - Tech Corp Ltd</td>
+                        <td>Credit</td>
+                        <td class="text-right credit">+₦450,000.00</td>
+                    </tr>
+                    <tr>
+                        <td>18 Aug 2026</td>
+                        <td>ATM Cash Withdrawal</td>
+                        <td>Debit</td>
+                        <td class="text-right debit">-₦10,000.00</td>
+                    </tr> -->
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+</body>
+</html>

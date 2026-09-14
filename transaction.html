@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stanbic IBTC Transaction Receipt</title>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f4f6f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* Receipt Card Container */
+        .receipt-card {
+            background-color: #ffffff;
+            width: 100%;
+            max-width: 500px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-top: 8px solid #0033aa; /* Stanbic Blue */
+            overflow: hidden;
+        }
+
+        /* Header Styles */
+        .receipt-header {
+            padding: 30px 24px 20px 24px;
+            text-align: center;
+            border-bottom: 1px dashed #e0e0e0;
+            position: relative;
+        }
+
+        .brand-logo {
+            font-size: 24px;
+            font-weight: 800;
+            color: #0033aa;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .brand-subtext {
+            font-size: 11px;
+            color: #718096;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+
+        .receipt-title {
+            font-size: 16px;
+            color: #1a202c;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .amount-display {
+            font-size: 28px;
+            font-weight: 700;
+            color: #0033aa;
+            margin-top: 10px;
+        }
+
+        .status-badge {
+            display: inline-block;
+            background-color: #e6fffa;
+            color: #319795;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 12px;
+            margin-top: 8px;
+            text-transform: uppercase;
+        }
+
+        /* Content/Details Styles */
+        .receipt-body {
+            padding: 24px;
+        }
+
+        .data-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 12px 0;
+            border-bottom: 1px solid #f0f4f8;
+            font-size: 14px;
+        }
+
+        .data-row:last-child {
+            border-bottom: none;
+        }
+
+        .label {
+            color: #718096;
+            font-weight: 500;
+            flex: 1;
+        }
+
+        .value {
+            color: #2d3748;
+            font-weight: 600;
+            text-align: right;
+            flex: 2;
+            word-break: break-word;
+        }
+
+        /* Footer Styles */
+        .receipt-footer {
+            background-color: #f7fafc;
+            padding: 20px 24px;
+            text-align: center;
+            font-size: 11px;
+            color: #a0aec0;
+            border-top: 1px solid #edf2f7;
+        }
+
+        .disclaimer {
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 5px;
+        }
+
+        .btn {
+            background-color: #0033aa;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            font-size: 12px;
+            font-weight: 600;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn:hover {
+            background-color: #002277;
+        }
+
+        .btn-secondary {
+            background-color: #e2e8f0;
+            color: #4a5568;
+        }
+
+        .btn-secondary:hover {
+            background-color: #cbd5e0;
+        }
+
+        /* Print Optimization */
+        @media print {
+            body {
+                background-color: #ffffff;
+                padding: 0;
+            }
+            .receipt-card {
+                box-shadow: none;
+                border: none;
+                max-width: 100%;
+            }
+            .action-buttons {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="receipt-card">
+        <!-- Header -->
+        <div class="receipt-header">
+            <div class="brand-logo">Stanbic IBTC</div>
+            <div class="brand-subtext">A member of Standard Bank Group</div>
+            <div class="receipt-title">Transaction Receipt</div>
+            <div class="amount-display">NGN 50,000.00</div>
+            <span class="status-badge">Successful</span>
+        </div>
+
+        <!-- Transaction Details -->
+        <div class="receipt-body">
+            <div class="data-row">
+                <span class="label">Transaction Date</span>
+                <span class="value">27-Aug-2026 14:32:10</span>
+            </div>
+            <div class="data-row">
+                <span class="label">Transaction Type</span>
+                <span class="value">Inter-Bank Transfer</span>
+            </div>
+            <div class="data-row">
+                <span class="label">Sender Name</span>
+                <span class="value">CHUKWUMA OBI ALIYU</span>
+            </div>
+            <div class="data-row">
+                <span class="label">Sender Account</span>
+                <span class="value">004******12</span>
+            </div>
+            <div class="data-row">
+                <span class="label">Beneficiary Bank</span>
+                <span class="value">Access Bank</span>
+            </div>
+            <div class="data-row">
+                <span class="label">Beneficiary Name</span>
+                <span class="value">AMINA BELLO INVESTMENT LTD</span>
+            </div>
+            <div class="data-row">
+                <span class="label">Beneficiary Account</span>
+                <span class="value">0123456789</span>
+            </div>
+            <div class="data-row">
+                <span class="label">Narration</span>
+                <span class="value">Project supply payment phase 1</span>
+            </div>
+            <div class="data-row">
+                <span class="label">Reference Number</span>
+                <span class="value">SIBTC/FT/20260827/984321055</span>
+            </div>
+        </div>
+
+        <!-- Footer & Actions -->
+        <div class="receipt-footer">
+            <p class="disclaimer">This is an automated transaction receipt generated by Stanbic IBTC Bank. Financial transactions are subject to final clearing.</p>
+            <div class="action-buttons">
+                <button class="btn" onclick="window.print()">Print Receipt</button>
+                <button class="btn btn-secondary" onclick="alert('Download triggered')">Download PDF</button>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

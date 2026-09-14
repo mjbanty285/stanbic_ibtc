@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Stanbic IBTC - Internet Banking</title>
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background: #1a1a1a;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    /* Phone frame */
+    .phone {
+      width: 375px;
+      height: 812px;
+      background: #f5f6f8;
+      border-radius: 40px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+      border: 8px solid #111;
+    }
+
+    /* Status bar */
+    .status-bar {
+      height: 44px;
+      background: #0033a0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+      color: white;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .status-bar .time {
+      font-weight: 600;
+    }
+
+    .status-icons {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    /* Header */
+    .header {
+      background: #0033a0;
+      color: white;
+      padding: 12px 20px 20px;
+    }
+
+    .header h1 {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .header p {
+      font-size: 13px;
+      opacity: 0.9;
+    }
+
+    /* Main content */
+    .content {
+      padding: 16px;
+      height: calc(100% - 44px - 90px - 70px);
+      overflow-y: auto;
+      background: #f5f6f8;
+    }
+
+    /* Top actions */
+    .top-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .select-btn {
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 20px;
+      padding: 8px 16px;
+      font-size: 14px;
+      color: #333;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .view-accounts {
+      background: transparent;
+      border: 1.5px solid #0033a0;
+      color: #0033a0;
+      border-radius: 20px;
+      padding: 8px 18px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    /* Loan banner */
+    .loan-banner {
+      background: linear-gradient(135deg, #e8f4fd 0%, #d6ebf9 100%);
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin-bottom: 16px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .loan-banner::after {
+      content: "";
+      position: absolute;
+      right: -20px;
+      top: -20px;
+      width: 100px;
+      height: 100px;
+      background: rgba(0, 51, 160, 0.08);
+      border-radius: 50%;
+    }
+
+    .loan-banner p {
+      font-size: 13px;
+      color: #333;
+      margin-bottom: 4px;
+    }
+
+    .loan-banner strong {
+      color: #0033a0;
+      font-size: 15px;
+    }
+
+    .loan-banner a {
+      color: #0033a0;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 4px;
+    }
+
+    /* Account card */
+    .account-card {
+      background: white;
+      border-radius: 14px;
+      padding: 18px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      margin-bottom: 20px;
+    }
+
+    .account-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+
+    .account-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: #222;
+      line-height: 1.3;
+    }
+
+    .account-count {
+      font-size: 12px;
+      color: #888;
+      background: #f0f0f0;
+      padding: 2px 8px;
+      border-radius: 10px;
+    }
+
+    .account-number {
+      font-size: 13px;
+      color: #666;
+      margin-bottom: 14px;
+    }
+
+    .balance-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 4px;
+    }
+
+    .balance {
+      font-size: 22px;
+      font-weight: 700;
+      color: #111;
+      letter-spacing: 0.5px;
+    }
+
+    .eye-icon {
+      width: 22px;
+      height: 22px;
+      background: #eee;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+    }
+
+    .effective {
+      font-size: 12px;
+      color: #888;
+      margin-bottom: 16px;
+    }
+
+    .statements-btn {
+      width: 100%;
+      background: #0033a0;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 14px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    /* Quick Links */
+    .section-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 14px;
+      letter-spacing: 0.3px;
+    }
+
+    .quick-links {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .quick-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .quick-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      color: white;
+    }
+
+    .quick-icon.blue { background: #1a73e8; }
+    .quick-icon.cyan { background: #00bcd4; }
+    .quick-icon.orange { background: #ff9800; }
+    .quick-icon.pink { background: #e91e63; }
+
+    .quick-item span {
+      font-size: 11px;
+      color: #444;
+      text-align: center;
+      line-height: 1.2;
+    }
+
+    /* Promo banner */
+    .promo {
+      background: #0033a0;
+      border-radius: 12px;
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      color: white;
+      margin-bottom: 20px;
+    }
+
+    .promo-img {
+      width: 60px;
+      height: 60px;
+      background: #002b7a;
+      border-radius: 10px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+    }
+
+    .promo-text h3 {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 4px;
+      line-height: 1.3;
+    }
+
+    .promo-text p {
+      font-size: 11px;
+      opacity: 0.85;
+    }
+
+    /* Bottom navigation */
+    .bottom-nav {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 70px;
+      background: #0033a0;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding-bottom: 10px;
+      color: white;
+    }
+
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      opacity: 0.85;
+    }
+
+    .nav-item.active {
+      opacity: 1;
+    }
+
+    .nav-icon {
+      font-size: 20px;
+    }
+
+    /* Footer note */
+    .footer-note {
+      position: absolute;
+      bottom: 70px;
+      left: 0;
+      right: 0;
+      background: #f0f0f0;
+      font-size: 9px;
+      color: #666;
+      text-align: center;
+      padding: 4px 10px;
+      line-height: 1.3;
+    }
+
+    /* Transfer page styles (hidden by default) */
+    .transfer-page {
+      display: none;
+    }
+
+    .transfer-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .back-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #eee;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+
+    .transfer-types {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .type-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .type-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: #0033a0;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+    }
+
+    .type-item span {
+      font-size: 12px;
+      color: #333;
+      text-align: center;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-group label {
+      font-size: 13px;
+      color: #555;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 14px;
+      background: white;
+    }
+
+    .limit-info {
+      font-size: 13px;
+      color: #0033a0;
+      margin-bottom: 4px;
+    }
+
+    /* Menu overlay */
+    .menu-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.4);
+      display: none;
+      z-index: 100;
+    }
+
+    .side-menu {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 260px;
+      height: 100%;
+      background: white;
+      padding: 60px 0 20px;
+      transform: translateX(100%);
+      transition: transform 0.3s ease;
+      z-index: 101;
+    }
+
+    .side-menu.open {
+      transform: translateX(0);
+    }
+
+    .menu-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 24px;
+      font-size: 15px;
+      color: #333;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .menu-item:last-child {
+      border-bottom: none;
+      color: #c62828;
+    }
+  </style>
+</head>
+<body>
+    
+
+  <div class="phone">
+    <!-- Status Bar -->
+    <div class="status-bar">
+      <span class="time"></span>
+      <div class="status-icons">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+
+    <!-- Header -->
+    <div class="header">
+      <h1> ROLAND OBIEDIMA</h1>
+      <p>Welcome back!</p>
+    </div>
+
+    <!-- Content -->
+    <div class="content" id="homeContent">
+      <div class="top-actions">
+        <div class="select-btn">Home ▾ Select</div>
+        <a href="view.html">VIEW ACCOUNTS</a>
+      </div>
+
+      <!-- Loan Banner -->
+      <div class="loan-banner">
+        <p>You can access <strong>EZ Cash Loan</strong> amount up to:</p>
+        <strong style="font-size:18px;">₦0</strong>
+        <br>
+        <a href="#">ACCESS YOUR LOAN ▸</a>
+      </div>
+
+      <!-- Account Card -->
+      <div class="account-card">
+        <div class="account-header">
+          <div class="account-name">ROLVIC GLOBAL CONTRACTORS<br>LTD</div>
+          <div class="account-count">1/1</div>
+        </div>
+        <div class="account-number">0076785488-CURRENT</div>
+        
+        <div class="balance-row">
+          <div class="balance">₦1,000,000,000.00</div>
+          <div class="eye-icon">👁</div>
+        </div>
+        <div class="effective">Available balance<br>Effective balance ₦1,000,000,000.00</div>
+        
+        <a href="account.html"><button class="statements-btn">VIEW STATEMENTS</button></a>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="section-title">QUICK LINKS</div>
+      <div class="quick-links">
+        <div class="quick-item">
+          <div class="quick-icon blue">📄</div>
+          <a href="bulk.html">Bulk<br>Transfer</a>
+        </div>
+        <div class="quick-item">
+          <div class="quick-icon cyan">⚡</div>
+          <a href="electricity.html">Electricity<br>& TV</a>
+        </div>
+        <div class="quick-item">
+          <div class="quick-icon orange">👥</div>
+          <a href="beneficiary.html">Beneficiary<br>Transfer</a>
+        </div>
+        <div class="quick-item">
+          <div class="quick-icon pink">🧾</div>
+          <a href="bulk.html">transaction<br>Receipt</a>
+        </div>
+      </div>
+
+      <!-- Promo -->
+      <div class="promo">
+        <div class="promo-img">👨‍💼</div>
+        <div class="promo-text">
+          <h3>HANDLE ALL YOUR BUSINESS NEEDS WITH ONE PLATFORM</h3>
+          <p>Access Enterprise Online 3.0 – real-time access and control of how you manage your business finances.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer note -->
+    <div class="footer-note">
+      Stanbic IBTC Bank is licensed by the Central Bank of Nigeria | Licensed to Deposit Takers
+    </div>
+
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+      <div class="nav-item active">
+        <div class="nav-icon">🏠</div>
+        <a href="index.html">Home</a>
+      </div>
+      <div class="nav-item">
+        <div class="nav-icon">📱</div>
+        <a href="airtime.html">Airtime & Data</a>
+      </div>
+      <div class="nav-item">
+        <div class="nav-icon">↔️</div>
+        <a href="transfer.html">transfer</a>
+        
+      </div>
+      <div class="nav-item">
+        <div class="nav-icon">💳</div>
+        <a href="loan.html">Loans</a>
+      </div>
+      <div class="nav-item" onclick="toggleMenu()">
+        <div class="nav-icon">☰</div>
+        <span></span>
+      </div>
+    </div>
+
+    <!-- Side Menu Overlay -->
+    <div class="menu-overlay" id="menuOverlay" onclick="toggleMenu()"></div>
+    <div class="side-menu" id="sideMenu">
+      <div class="menu-item">🏠 Home</div>
+      <div class="menu-item">📱<a href="airtime.html">Airtime & Data</a></div>
+      <div class="menu-item">↔️<a href="transfer.html"> Transfer</a></div>
+      <div class="menu-item">💳 <a href="loan.html">Loans</a></div>
+      <div class="menu-item">💰 <a href="payments.html">Payments</a></div>
+      <div class="menu-item">✅ <a href="approvals.html">Approvals</a></div>
+      <div class="menu-item">⚙️ <a href="account.html">Account</a></div>
+      <div class="menu-item">👤 <a href="profile.html">Profile</a></div>
+      <div class="menu-item">🚪 <a href="logout.html">Logout</a></div>
+    </div>
+  </div>
+
+  <script>
+    function toggleMenu() {
+      const menu = document.getElementById('sideMenu');
+      const overlay = document.getElementById('menuOverlay');
+      menu.classList.toggle('open');
+      overlay.style.display = menu.classList.contains('open') ? 'block' : 'none';
+    }
+  </script>
+</body>
+</html>

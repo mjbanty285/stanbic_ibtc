@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stanbic IBTC - Beneficiary Transfer</title>
+    <style>
+        :root {
+            --primary-blue: #0033a0;
+            --light-blue: #00a3e0;
+            --dark-blue: #001A57;
+            --gray-bg: #f4f6f9;
+            --text-color: #333333;
+            --border-color: #d1d5db;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--gray-bg);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .transfer-container {
+            background: #ffffff;
+            width: 100%;
+            max-width: 500px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-top: 6px solid var(--primary-blue);
+            overflow: hidden;
+        }
+
+        .header {
+            padding: 24px;
+            background: linear-gradient(135deg, var(--dark-blue), var(--primary-blue));
+            color: #ffffff;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .header p {
+            font-size: 13px;
+            opacity: 0.9;
+        }
+
+        .form-body {
+            padding: 24px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--dark-blue);
+        }
+
+        .form-group input, 
+        .form-group select, 
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 15px;
+            color: var(--text-color);
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .form-group input:focus, 
+        .form-group select:focus, 
+        .form-group textarea:focus {
+            border-color: var(--light-blue);
+            box-shadow: 0 0 0 3px rgba(0, 163, 224, 0.1);
+        }
+
+        .account-info {
+            background-color: #f0f7ff;
+            border: 1px dashed var(--light-blue);
+            padding: 12px;
+            border-radius: 4px;
+            margin-top: 8px;
+            font-size: 13px;
+            color: var(--dark-blue);
+            display: none;
+        }
+
+        .currency-input {
+            position: relative;
+        }
+
+        .currency-input span {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-weight: bold;
+            color: #666;
+        }
+
+        .currency-input input {
+            padding-left: 35px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            background-color: var(--primary-blue);
+            color: #ffffff;
+            border: none;
+            padding: 14px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            margin-top: 10px;
+        }
+
+        .btn-submit:hover {
+            background-color: var(--dark-blue);
+        }
+
+        .footer-note {
+            text-align: center;
+            padding: 15px;
+            font-size: 12px;
+            color: #777;
+            border-top: 1px solid #eee;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="transfer-container">
+        <div class="header">
+            <h1>Beneficiary Transfer</h1>
+            <p>Move funds securely to saved or new accounts</p>
+        </div>
+
+        <form class="form-body" onsubmit="event.preventDefault(); alert('Transfer Initiated Successfully!');">
+            
+            <!-- Source Account -->
+            <div class="form-group">
+                <label for="source-account">From Account</label>
+                <select id="source-account" required>
+                    <option value="">Select Source Account</option>
+                    <option value="savings">Savings Account - ***1234 (₦)</option>
+                    <option value="current">Current Account - ***5488 (₦1,000,000,000.00)</option>
+                </select>
+            </div>
+
+            <!-- Beneficiary Type -->
+            <div class="form-group">
+                <label for="beneficiary-type">Beneficiary Type</label>
+                <select id="beneficiary-type" onchange="toggleBeneficiaryForm()" required>
+                    <option value="saved">Saved Beneficiary</option>
+                    <option value="new">New Beneficiary</option>
+                </select>
+            </div>
+
+            <!-- Saved Beneficiaries Dropdown -->
+            <div class="form-group" id="saved-beneficiary-group">
+                <label for="saved-beneficiary">Select Beneficiary</label>
+                <select id="saved-beneficiary">
+                    <option value="">Choose a beneficiary</option>
+                    <option value="1">John Doe - Stanbic IBTC</option>
+                    <option value="2">Jane Smith - GTBank</option>
+                    <option value="3">Aliko Dangote - Access Bank</option>
+                </select>
+            </div>
+
+            <!-- New Beneficiary Fields (Hidden by default) -->
+            <div id="new-beneficiary-fields" style="display: none;">
+                <div class="form-group">
+                    <label for="bank-name">Destination Bank</label>
+                    <select id="bank-name">
+                        <option value="">Select Bank</option>
+                        <option value="stanbic">Stanbic IBTC Bank</option>
+                        <option value="access">Access Bank</option>
+                        <option value="gtb">Guaranty Trust Bank</option>
+                        <option value="zenith">Zenith Bank</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="account-number">Account Number</label>
+                    <input type="text" id="account-number" placeholder="Enter 10-digit number" maxlength="10" oninput="simulateNameLookup()">
+                    <div class="account-info" id="account-lookup-name">
+                        Target Name: <strong>CHIDI OPARA BENJAMIN</strong>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Amount -->
+            <div class="form-group">
+                <label for="amount">Amount</label>
+                <div class="currency-input">
+                    <span>₦</span>
+                    <input type="number" id="amount" placeholder="0.00" min="100" required>
+                </div>
+            </div>
+
+            <!-- Narration -->
+            <div class="form-group">
+                <label for="narration">Narration / Remarks</label>
+                <textarea id="narration" rows="2" placeholder="Optional transfer memo"></textarea>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn-submit">Continue</button>
+        </form>
+
+        <div class="footer-note">
+            Stanbic IBTC Bank Blue Rewards. Secure Banking Layer Active.
+        </div>
+    </div>
+
+    <script>
+        // Simple interactive script to mirror real banking flows
+        function toggleBeneficiaryForm() {
+            const type = document.getElementById('beneficiary-type').value;
+            const savedGroup = document.getElementById('saved-beneficiary-group');
+            const newFields = document.getElementById('new-beneficiary-fields');
+
+            if (type === 'new') {
+                savedGroup.style.display = 'none';
+                newFields.style.display = 'block';
+            } else {
+                savedGroup.style.display = 'block';
+                newFields.style.display = 'none';
+            }
+        }
+
+        function simulateNameLookup() {
+            const accNum = document.getElementById('account-number').value;
+            const lookupBox = document.getElementById('account-lookup-name');
+            
+            // Show a mock lookup name once 10 digits are filled
+            if (accNum.length === 10) {
+                lookupBox.style.display = 'block';
+            } else {
+                lookupBox.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>

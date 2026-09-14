@@ -1,0 +1,480 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Account</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            color: #222;
+            padding-bottom: 80px;
+        }
+
+        /* HEADER */
+        .header {
+            background: linear-gradient(180deg, #0066cc, #0052a3);
+            color: white;
+            padding: 20px 16px;
+        }
+
+        .header h1 {
+            font-size: 18px;
+        }
+
+        .header p {
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+        /* SELECT BAR */
+        .select-bar {
+            background: white;
+            margin: 15px;
+            padding: 14px;
+            border-radius: 10px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            cursor: pointer;
+        }
+
+        .select-bar span:first-child {
+            font-weight: bold;
+        }
+
+        .select {
+            color: #777;
+            font-size: 12px;
+        }
+
+        /* DROPDOWN */
+        .dropdown {
+            display: none;
+            background: white;
+            margin: -5px 15px 15px;
+            border-radius: 10px;
+            overflow: hidden;
+
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+        }
+
+        .dropdown.show {
+            display: block;
+        }
+
+        .dropdown button {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-bottom: 1px solid #eee;
+            background: white;
+            text-align: left;
+            cursor: pointer;
+        }
+
+        .dropdown button:hover {
+            background: #f2f6fb;
+        }
+
+        /* MAIN */
+        main {
+            padding: 0 15px;
+        }
+
+        /* CARD */
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 18px;
+            margin-bottom: 15px;
+
+            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+        }
+
+        .account-top {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .account-number {
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .account-name {
+            margin-top: 7px;
+            color: #555;
+            font-size: 13px;
+        }
+
+        .page-number {
+            color: #777;
+            font-size: 12px;
+        }
+
+        /* SUMMARY */
+        .card h2 {
+            font-size: 17px;
+            margin-bottom: 10px;
+        }
+
+        .date {
+            color: #555;
+            font-size: 13px;
+            margin-bottom: 18px;
+        }
+
+        .totals {
+            display: flex;
+            gap: 45px;
+            margin-bottom: 18px;
+        }
+
+        .label {
+            color: #777;
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
+
+        .amount {
+            font-size: 19px;
+            font-weight: bold;
+        }
+
+        .credit {
+            color: #16a34a;
+        }
+
+        .debit {
+            color: #ea580c;
+        }
+
+        /* LEGEND */
+        .legend {
+            display: flex;
+            gap: 20px;
+            font-size: 12px;
+            margin-bottom: 12px;
+        }
+
+        .dot {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            margin-right: 5px;
+            border-radius: 2px;
+        }
+
+        /* CHART */
+        .chart {
+            height: 150px;
+            display: flex;
+            gap: 8px;
+        }
+
+        .y-axis {
+            width: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            color: #777;
+            font-size: 11px;
+        }
+
+        .plot {
+            flex: 1;
+
+            border-left: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
+
+            background:
+                repeating-linear-gradient(
+                    to top,
+                    transparent 0,
+                    transparent 29px,
+                    #eef2f7 29px,
+                    #eef2f7 30px
+                );
+        }
+
+        /* EMPTY TRANSACTIONS */
+        .empty-title {
+            text-align: center;
+            font-size: 22px;
+            font-weight: bold;
+            margin: 25px 0 8px;
+        }
+
+        .note {
+            text-align: center;
+            color: #777;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        /* BOTTOM NAVIGATION */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+
+            height: 65px;
+
+            background: #0066cc;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+        }
+
+        .bottom-nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 11px;
+            opacity: 0.75;
+        }
+
+        .bottom-nav a.active {
+            opacity: 1;
+            font-weight: bold;
+        }
+
+        /* MOBILE */
+        @media (min-width: 480px) {
+            body {
+                max-width: 430px;
+                margin: auto;
+                box-shadow: 0 0 40px rgba(0,0,0,0.08);
+            }
+
+            .bottom-nav {
+                max-width: 430px;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="header">
+        <h1></h1>
+        <p>Welcome back!</p>
+    </header>
+
+    <!-- ACCOUNT SELECT -->
+    <div class="select-bar" onclick="toggleDropdown()">
+        <span>Account</span>
+        <span class="select">▼ Select</span>
+    </div>
+
+    <!-- DROPDOWN -->
+    <div class="dropdown" id="accountDropdown">
+
+        <button onclick="selectAccount('0076785488-CURRENT')">
+            0076785488-CURRENT
+        </button>
+
+        <button onclick="selectAccount('0076785488-SAVINGS')">
+            0076785488-SAVINGS
+        </button>
+
+    </div>
+
+    <main>
+
+        <!-- ACCOUNT CARD -->
+        <div class="card">
+
+            <div class="account-top">
+
+                <div>
+                    <div class="account-number" id="accountNumber">
+                        0076785488-CURRENT
+                    </div>
+
+                    <div class="account-name">
+                        DEMO COMPANY LTD
+                    </div>
+                </div>
+
+                <div class="page-number">
+                    1/1
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ACCOUNT SUMMARY -->
+        <div class="card">
+
+            <h2>Account Summary</h2>
+
+            <p class="date">
+                Showing results for August 6, 2026 – August 26, 2026
+            </p>
+
+            <div class="totals">
+
+                <div>
+                    <div class="label">
+                        Total Credit
+                    </div>
+
+                    <div class="amount credit">
+                        ₦1,000,000,000.00
+                    </div>
+                </div>
+
+                <div>
+                    <div class="label">
+                        Total Debit
+                    </div>
+
+                    <div class="amount debit">
+                        ₦0
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- LEGEND -->
+            <div class="legend">
+
+                <span>
+                    <i class="dot credit"
+                       style="background:#16a34a">
+                    </i>
+                    Credit
+                </span>
+
+                <span>
+                    <i class="dot debit"
+                       style="background:#ea580c">
+                    </i>
+                    Debit
+                </span>
+
+            </div>
+
+            <!-- CHART -->
+            <div class="chart">
+
+                <div class="y-axis">
+                    <span>1.0</span>
+                    <span>0.8</span>
+                    <span>0.6</span>
+                    <span>0.4</span>
+                    <span>0.2</span>
+                    <span>0</span>
+                </div>
+
+                <div class="plot"></div>
+
+            </div>
+
+        </div>
+
+        <!-- EMPTY TRANSACTIONS -->
+        <h2 class="empty-title">
+            No Transaction Found
+        </h2>
+
+        <p class="note">
+            This is a frontend learning demo with sample account data only.
+        </p>
+
+    </main>
+
+    <p class="note" style="margin-top:20px;">
+        Learning UI only. Not connected to any bank.
+    </p>
+
+    <!-- BOTTOM NAVIGATION -->
+    <nav class="bottom-nav">
+
+        <a href="airtime.html">
+            Home
+        </a>
+
+        <a href="airtime.html">
+            Airtime
+        </a>
+
+        <a href="#">
+            Transfer
+        </a>
+
+        <a href="loan.html">
+            Loans
+        </a>
+
+        <a href="account.html" class="active">
+            Account
+        </a>
+
+    </nav>
+
+    <!-- JAVASCRIPT -->
+    <script>
+
+        function toggleDropdown() {
+
+            document
+                .getElementById("accountDropdown")
+                .classList.toggle("show");
+
+        }
+
+        function selectAccount(account) {
+
+            document
+                .getElementById("accountNumber")
+                .textContent = account;
+
+            document
+                .getElementById("accountDropdown")
+                .classList.remove("show");
+
+        }
+
+        document.addEventListener("click", function(event) {
+
+            if (
+                !event.target.closest(".select-bar") &&
+                !event.target.closest(".dropdown")
+            ) {
+
+                document
+                    .getElementById("accountDropdown")
+                    .classList.remove("show");
+
+            }
+
+        });
+
+    </script>
+
+</body>
+</html>
+```
+<!-- 
+Save it as **`account.html`** in VS Code and open it with your browser. The CSS, HTML, and JavaScript are all contained in the **same file**. -->

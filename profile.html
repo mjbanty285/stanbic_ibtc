@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile Management | Internet Banking</title>
+  <style>
+    :root {
+      --primary: #0056b3;
+      --header-blue: #0066cc;
+      --bg: #f4f6f9;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      background: var(--bg);
+      min-height: 100vh;
+      padding-bottom: 80px;
+    }
+
+    .app-header {
+      background: linear-gradient(180deg, var(--header-blue), #0052a3);
+      color: #fff;
+      padding: 16px 16px 20px;
+    }
+
+    .app-header h1 { font-size: 15px; font-weight: 600; }
+    .app-header p { font-size: 12px; opacity: 0.9; margin-top: 2px; }
+
+    .select-bar {
+      background: #fff;
+      margin: 14px 16px 0;
+      border-radius: 8px;
+      padding: 10px 14px;
+      display: flex;
+      justify-content: space-between;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    main { padding: 16px; }
+
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+      padding: 16px;
+    }
+
+    .item {
+      width: 100%;
+      display: block;
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin-bottom: 10px;
+      font-size: 14px;
+      text-align: left;
+    }
+
+    .bottom-nav {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      height: 64px;
+      background: var(--header-blue);
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+    }
+
+    .nav-item { color: #fff; text-decoration: none; font-size: 10px; opacity: 0.75; }
+    .nav-item.active { opacity: 1; font-weight: 700; }
+  </style>
+</head>
+<body>
+  <header class="app-header">
+    <h1></h1>
+    <p>Welcome back!</p>
+  </header>
+
+  <div class="select-bar">
+    <span>Profile Management</span>
+    <span>▼ Select</span><a href="index.html">Home</a>
+    <a href="airtime.html">Airtime</a>
+    <a href="transfer.html">Transfer</a>
+    <a href="loan.html">Loans</a>
+    <a href="payments.html">Payments</a>
+    <a href="approvals.html">Approvals</a>
+
+  </div>
+
+  <main>
+    <div class="card">
+      <h2>Profile Management</h2>
+      <a href="viewprofile.html" class="item">View Profile</a>
+      <button class="item" type="button">Update Contact Details</button>
+      <button class="item" type="button">Change Password</button>
+      <button class="item" type="button">Transaction PIN</button>
+      <button class="item" type="button">Linked Devices</button>
+    </div>
+  </main>
+
+  <nav class="bottom-nav">
+    <a class="nav-item" href="index.html">Home</a>
+    <a class="nav-item" href="airtime.html">Airtime</a>
+    <a class="nav-item" href="transfer.html">Transfer</a>
+    <a class="nav-item" href="loan.html">Loans</a>
+    <a class="nav-item active" href="profile.html">Profile</a>
+  </nav>
+</body>
+</html>

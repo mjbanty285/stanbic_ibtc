@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open an Account - Stanbic IBTC Bank</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f4f7f6;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: #ffffff;
+            width: 100%;
+            max-width: 500px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            border-top: 5px solid #003366;
+        }
+
+        .header {
+            background-color: #003366;
+            color: #ffffff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 22px;
+            margin-bottom: 5px;
+        }
+
+        .header p {
+            font-size: 14px;
+            color: #e0e0e0;
+        }
+
+        form {
+            padding: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #003366;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        input:focus, select:focus {
+            border-color: #003366;
+            outline: none;
+            box-shadow: 0 0 5px rgba(0, 51, 102, 0.3);
+        }
+
+        .btn-submit {
+            background-color: #f37021;
+            
+        }
+
+        .btn-submit:hover {
+            background-color: #d95e19;
+        }
+
+        .footer-text {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 12px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="header">
+            <h1>Stanbic IBTC Bank</h1>
+            <p>Instant Account Opening</p>
+        </div>
+        
+        <form action="#" method="POST">
+            <div class="form-group">
+                <label for="fullname">Full Name (As on BVN)</label>
+                <input type="text" id="fullname" name="fullname" placeholder="Enter your full name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" placeholder="08012345678" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" placeholder="name@example.com" required>
+            </div>
+
+            <div class="form-group">
+                <label for="bvn">Bank Verification Number (BVN)</label>
+                <input type="text" id="bvn" name="bvn" maxlength="11" placeholder="11-digit BVN" required>
+            </div>
+
+            <div class="form-group">
+                <label for="account-type">Account Type</label>
+                <select id="account-type" name="account_type" required>
+                    <option value="">Select Account Type</option>
+                    <option value="savings">Savings Account</option>
+                    <option value="current">Current Account</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn-submit">Submit Application</button>
+            
+            <div class="footer-text">
+                By clicking submit, you agree to the terms and conditions.
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>
