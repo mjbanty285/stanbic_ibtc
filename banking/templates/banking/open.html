@@ -1,0 +1,41 @@
+{% extends "banking/base.html" %}
+{% block title %}Open an Account - Stanbic IBTC{% endblock %}
+{% block body %}
+<div class="min-h-screen flex items-center justify-center p-5">
+  <div class="bg-white w-full max-w-md rounded-lg shadow-lg overflow-hidden border-t-4 border-brand">
+    <div class="bg-brand text-white text-center py-5">
+      <h1 class="text-lg font-bold">Stanbic IBTC Bank</h1>
+      <p class="text-sm opacity-90">Instant Account Opening</p>
+    </div>
+    <form method="POST" class="p-6 space-y-4">
+      {% csrf_token %}
+      <div>
+        <label class="block text-sm font-bold text-brand mb-1.5">Full Name (As on BVN)</label>
+        <input type="text" name="fullname" required class="w-full border border-gray-300 rounded px-3.5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand" placeholder="Enter your full name">
+      </div>
+      <div>
+        <label class="block text-sm font-bold text-brand mb-1.5">Phone Number</label>
+        <input type="tel" name="phone" required class="w-full border border-gray-300 rounded px-3.5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand" placeholder="08012345678">
+      </div>
+      <div>
+        <label class="block text-sm font-bold text-brand mb-1.5">Email Address</label>
+        <input type="email" name="email" required class="w-full border border-gray-300 rounded px-3.5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand" placeholder="name@example.com">
+      </div>
+      <div>
+        <label class="block text-sm font-bold text-brand mb-1.5">Bank Verification Number (BVN)</label>
+        <input type="text" name="bvn" maxlength="11" required class="w-full border border-gray-300 rounded px-3.5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand" placeholder="11-digit BVN">
+      </div>
+      <div>
+        <label class="block text-sm font-bold text-brand mb-1.5">Account Type</label>
+        <select name="account_type" required class="w-full border border-gray-300 rounded px-3.5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand">
+          <option value="">Select Account Type</option>
+          <option value="savings">Savings Account</option>
+          <option value="current">Current Account</option>
+        </select>
+      </div>
+      <button type="submit" class="w-full bg-accent text-white font-bold rounded py-3">Submit Application</button>
+      <p class="text-center text-xs text-gray-500">By clicking submit, you agree to the terms and conditions.</p>
+    </form>
+  </div>
+</div>
+{% endblock %}

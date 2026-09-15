@@ -1,5 +1,43 @@
 from django.shortcuts import render
 
+from django.contrib.auth.models import User
+
+from .models import Account
+from .utils import generate_account_number, generate_password
+
 
 def landing(request):
     return render(request, "banking/landing.html")
+
+
+def signup(request):
+    if request.method == "POST":
+        full_name = request.POST.get("fullname", "").strip()
+        phone = request.POST.get("phone", "").strip()
+        email = request.POST.get("email", "").strip()
+        bvn = request.POST.get("bvn", "").strip()
+        account_type = request.POST.get("account_type", "current")
+
+        password = generate_password()
+        user = User.objects.create_user(username=email, email=email, password=password)
+
+        account_number = generate_account_number()
+        while Account.objects.filter(account_number=account_number).exists():
+            account_number = generate_account_number()
+
+        account = Account.objects.create(
+            user=user,
+            account_number=account_number,
+            full_name=full_name,
+            phone=phone,
+            bvn=bvn,
+            account_type=account_type,
+        )
+
+        return render(request, "banking/signup_success.html", {
+            "email": email,
+            "password": password,
+            "account_number": account.account_number,
+        })
+
+    return render(request, "banking/open.html")

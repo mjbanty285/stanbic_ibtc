@@ -1,0 +1,17 @@
+{% extends "banking/base.html" %}
+{% block title %}Account Created - Stanbic IBTC{% endblock %}
+{% block body %}
+<div class="min-h-screen flex items-center justify-center p-5">
+  <div class="bg-white w-full max-w-md rounded-lg shadow-lg overflow-hidden border-t-4 border-brand text-center p-8">
+    <div class="mx-auto mb-4 h-14 w-14 rounded-full bg-green-100 text-green-600 flex items-center justify-center text-2xl">✓</div>
+    <h1 class="text-lg font-bold text-brand mb-2">Account Created</h1>
+    <p class="text-sm text-gray-600 mb-6">Save these login details — they are shown only once.</p>
+    <div class="bg-gray-50 rounded-lg p-4 text-left space-y-2 text-sm mb-6">
+      <p><span class="text-gray-500">Account Number:</span> <span class="font-semibold">{{ account_number }}</span></p>
+      <p><span class="text-gray-500">Login Email:</span> <span class="font-semibold">{{ email }}</span></p>
+      <p><span class="text-gray-500">Password:</span> <span class="font-semibold">{{ password }}</span></p>
+    </div>
+    <a href="{% url 'login' %}" class="w-full inline-block bg-brand text-white font-semibold rounded-lg py-3.5">Continue to Login</a>
+  </div>
+</div>
+{% endblock %}
