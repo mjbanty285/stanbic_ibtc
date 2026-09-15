@@ -1,0 +1,17 @@
+<nav class="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-brand text-white flex items-center justify-around h-16 z-30">
+  <a href="{% url 'dashboard' %}" class="flex flex-col items-center gap-0.5 text-[10px] {% if request.resolver_match.url_name == 'dashboard' %}opacity-100 font-bold{% else %}opacity-75{% endif %}">
+    <span class="text-lg leading-none">🏠</span>Home
+  </a>
+  <a href="{% url 'airtime' %}" class="flex flex-col items-center gap-0.5 text-[10px] {% if request.resolver_match.url_name == 'airtime' %}opacity-100 font-bold{% else %}opacity-75{% endif %}">
+    <span class="text-lg leading-none">📱</span>Airtime
+  </a>
+  <a href="{% url 'transfer' %}" class="flex flex-col items-center gap-0.5 text-[10px] {% if request.resolver_match.url_name == 'transfer' %}opacity-100 font-bold{% else %}opacity-75{% endif %}">
+    <span class="text-lg leading-none">↔️</span>Transfer
+  </a>
+  <a href="{% url 'loan' %}" class="flex flex-col items-center gap-0.5 text-[10px] {% if request.resolver_match.url_name == 'loan' %}opacity-100 font-bold{% else %}opacity-75{% endif %}">
+    <span class="text-lg leading-none">💳</span>Loans
+  </a>
+  <button onclick="toggleMenu()" type="button" class="flex flex-col items-center gap-0.5 text-[10px] opacity-75">
+    <span class="text-lg leading-none">☰</span>Menu
+  </button>
+</nav>

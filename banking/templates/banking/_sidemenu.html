@@ -1,0 +1,12 @@
+<div id="menuOverlay" onclick="toggleMenu()" class="fixed inset-0 bg-black/40 hidden z-40"></div>
+<div id="sideMenu" class="fixed top-0 right-0 h-full w-64 max-w-[80%] bg-white translate-x-full transition-transform duration-300 z-50 pt-14 pb-5 overflow-y-auto">
+  <a href="{% url 'dashboard' %}" class="flex items-center gap-3 px-6 py-3.5 text-sm text-gray-700 border-b border-gray-100">🏠 Home</a>
+  <a href="{% url 'airtime' %}" class="flex items-center gap-3 px-6 py-3.5 text-sm text-gray-700 border-b border-gray-100">📱 Airtime & Data</a>
+  <a href="{% url 'transfer' %}" class="flex items-center gap-3 px-6 py-3.5 text-sm text-gray-700 border-b border-gray-100">↔️ Transfer</a>
+  <a href="{% url 'loan' %}" class="flex items-center gap-3 px-6 py-3.5 text-sm text-gray-700 border-b border-gray-100">💳 Loans</a>
+  <a href="{% url 'payments' %}" class="flex items-center gap-3 px-6 py-3.5 text-sm text-gray-700 border-b border-gray-100">💰 Payments</a>
+  <a href="{% url 'approvals' %}" class="flex items-center gap-3 px-6 py-3.5 text-sm text-gray-700 border-b border-gray-100">✅ Approvals</a>
+  <a href="{% url 'account_page' %}" class="flex items-center gap-3 px-6 py-3.5 text-sm text-gray-700 border-b border-gray-100">⚙️ Account</a>
+  <a href="{% url 'profile' %}" class="flex items-center gap-3 px-6 py-3.5 text-sm text-gray-700 border-b border-gray-100">👤 Profile</a>
+  <a href="{% url 'logout' %}" class="flex items-center gap-3 px-6 py-3.5 text-sm text-red-600">🚪 Logout</a>
+</div>

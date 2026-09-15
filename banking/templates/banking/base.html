@@ -1,0 +1,25 @@
+{% load static %}<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Stanbic IBTC{% endblock %}</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: { DEFAULT: '#0033a0', dark: '#002266', light: '#e6edf8' },
+            accent: '#00a3e0'
+          }
+        }
+      }
+    }
+  </script>
+  <script src="{% static 'banking/js/app.js' %}" defer></script>
+</head>
+<body class="bg-gray-100 text-gray-800 min-h-screen">
+  {% block body %}{% endblock %}
+</body>
+</html>
