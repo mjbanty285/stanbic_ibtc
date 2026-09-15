@@ -1,0 +1,56 @@
+{% extends "banking/base.html" %}
+{% block title %}Stanbic IBTC - Internet Banking{% endblock %}
+{% block body %}
+<div class="bg-brand-dark text-white text-xs px-6 py-2 flex justify-between">
+  <span>Stanbic IBTC Holdings | IT CAN BE.</span>
+  <span class="hidden sm:flex gap-5"><a href="#">About Us</a><a href="#">Contact</a><a href="#">Investor Relations</a></span>
+</div>
+<nav class="bg-white px-6 py-4 flex justify-between items-center shadow sticky top-0 z-10">
+  <span class="text-brand font-bold text-xl flex items-center gap-2">
+    <span class="w-8 h-8 bg-brand rounded"></span>Stanbic IBTC
+  </span>
+  <ul class="hidden md:flex gap-6 text-sm font-semibold text-gray-700">
+    <li>Personal</li><li>Business</li><li>Corporate</li><li>Wealth</li><li>Insurance</li>
+  </ul>
+  <a href="{% url 'login' %}" class="bg-accent text-white px-5 py-2 rounded font-bold text-sm">Internet Banking</a>
+</nav>
+<header class="bg-gradient-to-br from-brand/90 to-brand-dark/90 text-white px-6 py-20">
+  <div class="max-w-lg">
+    <h1 class="text-3xl md:text-4xl font-bold mb-4 leading-tight">Towards your dreams, we move.</h1>
+    <p class="text-lg mb-6">Experience seamless automated banking designed to fit your unique personal and business lifestyles.</p>
+    <div class="flex gap-4">
+      <a href="{% url 'signup' %}" class="bg-accent px-6 py-3 rounded font-bold">Open an Account</a>
+      <a href="{% url 'login' %}" class="bg-white text-brand px-6 py-3 rounded font-bold">Sign In</a>
+    </div>
+  </div>
+</header>
+<section class="px-6 py-16 text-center">
+  <h2 class="text-2xl font-bold text-brand mb-10">Our Banking Solutions</h2>
+  <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 max-w-5xl mx-auto">
+    <div class="bg-white rounded-lg shadow p-8 border-b-4 border-transparent hover:border-brand transition">
+      <div class="text-4xl text-accent mb-3">💳</div><h3 class="font-semibold text-brand-dark mb-2">Cards</h3>
+      <p class="text-sm text-gray-600">Explore credit, debit, and prepaid solutions tailored for global reach.</p>
+    </div>
+    <div class="bg-white rounded-lg shadow p-8 border-b-4 border-transparent hover:border-brand transition">
+      <div class="text-4xl text-accent mb-3">📈</div><h3 class="font-semibold text-brand-dark mb-2">Investments</h3>
+      <p class="text-sm text-gray-600">Grow your financial portfolio with mutual funds and asset management.</p>
+    </div>
+    <div class="bg-white rounded-lg shadow p-8 border-b-4 border-transparent hover:border-brand transition">
+      <div class="text-4xl text-accent mb-3">💰</div><h3 class="font-semibold text-brand-dark mb-2">Loans</h3>
+      <p class="text-sm text-gray-600">Access fast, flexible funding options to scale your aspirations.</p>
+    </div>
+    <div class="bg-white rounded-lg shadow p-8 border-b-4 border-transparent hover:border-brand transition">
+      <div class="text-4xl text-accent mb-3">📱</div><h3 class="font-semibold text-brand-dark mb-2">Digital Banking</h3>
+      <p class="text-sm text-gray-600">Bank securely anytime, anywhere via our improved SuperApp.</p>
+    </div>
+  </div>
+</section>
+<footer class="bg-brand-dark text-gray-300 px-6 pt-10 pb-6 text-sm">
+  <div class="grid gap-8 sm:grid-cols-3 border-b border-white/10 pb-8 mb-4 max-w-5xl mx-auto">
+    <div><h4 class="text-accent font-semibold mb-3">Personal Banking</h4><ul class="space-y-2"><li>Savings Accounts</li><li>Current Accounts</li><li>Personal Loans</li></ul></div>
+    <div><h4 class="text-accent font-semibold mb-3">Business Solutions</h4><ul class="space-y-2"><li>SME Banking</li></ul></div>
+    <div><h4 class="text-accent font-semibold mb-3">Contact</h4><ul class="space-y-2"><li>Licensed by the Central Bank of Nigeria</li></ul></div>
+  </div>
+  <p class="text-center text-xs text-gray-400">© Stanbic IBTC Bank — Prototype build</p>
+</footer>
+{% endblock %}
