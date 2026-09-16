@@ -106,3 +106,8 @@ def bulk_transfer(request):
         "account": request.user.account,
         "beneficiaries": SAVED_BENEFICIARIES,
     })
+
+
+@login_required
+def airtime(request):
+    return render(request, "banking/airtime.html", {"account": request.user.account})
