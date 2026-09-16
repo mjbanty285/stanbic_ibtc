@@ -215,3 +215,25 @@ def change_password(request):
 
     messages.success(request, "Your password has been changed.")
     return redirect("profile")
+
+
+@login_required
+@require_POST
+def set_pin(request):
+    pin = request.POST.get("pin", "")
+    confirm_pin = request.POST.get("confirm_pin", "")
+
+    if not (pin.isdigit() and len(pin) == 4):
+        messages.error(request, "PIN must be exactly 4 digits.")
+        return redirect("profile")
+
+    if pin != confirm_pin:
+        messages.error(request, "PIN and confirmation do not match.")
+        return redirect("profile")
+
+    account = request.user.account
+    account.transaction_pin = make_password(pin)
+    account.save()
+
+    messages.success(request, "Your transaction PIN has been set.")
+    return redirect("profile")

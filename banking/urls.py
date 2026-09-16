@@ -23,4 +23,5 @@ urlpatterns = [
     path("transaction/", views.transaction_receipt, name="transaction_receipt"),
     path("profile/update-details/", views.update_details, name="update_details"),
     path("profile/change-password/", views.change_password, name="change_password"),
+    path("profile/set-pin/", views.set_pin, name="set_pin"),
 ]
