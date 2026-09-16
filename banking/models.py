@@ -17,6 +17,7 @@ class Account(models.Model):
     bvn = models.CharField(max_length=11)
     account_type = models.CharField(max_length=10, choices=ACCOUNT_TYPES, default="current")
     balance = models.DecimalField(max_digits=15, decimal_places=2, default=Decimal("1000000000.00"))
+    transaction_pin = models.CharField(max_length=128, blank=True, default="")
 
     def __str__(self):
         return f"{self.full_name} ({self.account_number})"
