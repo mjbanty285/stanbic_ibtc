@@ -68,3 +68,8 @@ def logout_view(request):
 @login_required
 def dashboard(request):
     return render(request, "banking/index.html", {"account": request.user.account})
+
+
+@login_required
+def account_page(request):
+    return render(request, "banking/account.html", {"account": request.user.account})

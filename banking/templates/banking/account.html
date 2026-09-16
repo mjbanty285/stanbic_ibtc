@@ -1,0 +1,40 @@
+{% extends "banking/dashboard_base.html" %}
+{% load humanize %}
+{% block title %}Account - Stanbic IBTC{% endblock %}
+{% block content %}
+<div class="bg-white rounded-lg px-4 py-3.5 flex justify-between items-center shadow-sm mb-4 cursor-pointer" onclick="document.getElementById('accountDropdown').classList.toggle('hidden')">
+  <span class="font-semibold text-sm">Account</span>
+  <span class="text-xs text-gray-500">▼ Select</span>
+</div>
+<div id="accountDropdown" class="hidden bg-white rounded-lg shadow-lg mb-4 overflow-hidden">
+  <button type="button" class="w-full text-left px-4 py-3.5 border-b border-gray-100 hover:bg-gray-50">{{ account.account_number }}-{{ account.get_account_type_display|upper }}</button>
+</div>
+
+<div class="bg-white rounded-xl shadow-sm p-4 mb-4">
+  <div class="flex justify-between">
+    <div>
+      <div class="text-base font-bold">{{ account.account_number }}-{{ account.get_account_type_display|upper }}</div>
+      <div class="text-sm text-gray-500 mt-1.5">{{ account.full_name }}</div>
+    </div>
+    <div class="text-xs text-gray-400">1/1</div>
+  </div>
+</div>
+
+<div class="bg-white rounded-xl shadow-sm p-4 mb-4">
+  <h2 class="text-base font-semibold mb-2">Account Summary</h2>
+  <p class="text-sm text-gray-500 mb-4">Showing results for the last 30 days</p>
+  <div class="flex gap-10 mb-4">
+    <div>
+      <div class="text-xs text-gray-500 mb-1">Total Credit</div>
+      <div class="text-lg font-bold text-green-600">₦{{ account.balance|intcomma }}</div>
+    </div>
+    <div>
+      <div class="text-xs text-gray-500 mb-1">Total Debit</div>
+      <div class="text-lg font-bold text-orange-600">₦0</div>
+    </div>
+  </div>
+</div>
+
+<h2 class="text-center text-xl font-bold my-6">No Transaction Found</h2>
+<p class="text-center text-xs text-gray-500 leading-relaxed">This is a frontend prototype demo with sample account data only.<br>Not connected to any real bank.</p>
+{% endblock %}
