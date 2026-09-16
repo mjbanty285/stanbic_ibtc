@@ -14,4 +14,5 @@ urlpatterns = [
     path("beneficiary/", views.beneficiary_transfer, name="beneficiary_transfer"),
     path("bulk-transfer/", views.bulk_transfer, name="bulk_transfer"),
     path("airtime/", views.airtime, name="airtime"),
+    path("electricity/", views.electricity, name="electricity"),
 ]

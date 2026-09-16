@@ -111,3 +111,8 @@ def bulk_transfer(request):
 @login_required
 def airtime(request):
     return render(request, "banking/airtime.html", {"account": request.user.account})
+
+
+@login_required
+def electricity(request):
+    return render(request, "banking/electricity.html", {"account": request.user.account})

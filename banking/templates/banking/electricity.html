@@ -1,0 +1,74 @@
+{% extends "banking/dashboard_base.html" %}
+{% block title %}Bill Payment - Stanbic IBTC{% endblock %}
+{% block content %}
+<div class="bg-white rounded-xl shadow-sm overflow-hidden">
+  <div class="bg-brand text-white text-center py-5">
+    <h1 class="text-lg font-semibold">Stanbic IBTC Payments</h1>
+  </div>
+  <div class="flex bg-brand-light">
+    <button type="button" id="tab-electricity" onclick="switchBillTab('electricity')" class="flex-1 py-3.5 text-sm font-bold text-brand bg-white border-b-[3px] border-brand">Electricity</button>
+    <button type="button" id="tab-tv" onclick="switchBillTab('tv')" class="flex-1 py-3.5 text-sm font-bold text-brand">TV Subscription</button>
+  </div>
+  <div class="p-6">
+    <form id="electricity-form" data-fake-transaction data-balance="{{ account.balance }}" class="space-y-4">
+      <div>
+        <label class="block text-sm font-semibold mb-2">Select DisCo (Provider)</label>
+        <select required class="w-full border border-gray-300 rounded px-3.5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand">
+          <option value="">-- Choose Provider --</option>
+          <option value="ekedc">EKEDC (Eko)</option><option value="ikedc">IKEDC (Ikeja)</option><option value="aedc">AEDC (Abuja)</option><option value="ibedc">IBEDC (Ibadan)</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-semibold mb-2">Meter Type</label>
+        <select class="w-full border border-gray-300 rounded px-3.5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand">
+          <option value="prepaid">Prepaid</option><option value="postpaid">Postpaid</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-semibold mb-2">Meter / Account Number</label>
+        <input type="number" required placeholder="Enter meter number" class="w-full border border-gray-300 rounded px-3.5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand">
+      </div>
+      <div>
+        <label class="block text-sm font-semibold mb-2">Amount (NGN)</label>
+        <input type="number" data-amount-field min="100" required placeholder="0.00" class="w-full border border-gray-300 rounded px-3.5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand">
+      </div>
+      <button type="submit" class="w-full bg-brand text-white font-bold rounded py-3.5">Pay Bill</button>
+    </form>
+    <form id="tv-form" data-fake-transaction data-balance="{{ account.balance }}" class="hidden space-y-4">
+      <div>
+        <label class="block text-sm font-semibold mb-2">Select Provider</label>
+        <select required class="w-full border border-gray-300 rounded px-3.5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand">
+          <option value="">-- Choose Provider --</option>
+          <option value="dstv">DSTV</option><option value="gotv">GOtv</option><option value="startimes">StarTimes</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-semibold mb-2">Select Package</label>
+        <select required class="w-full border border-gray-300 rounded px-3.5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand">
+          <option value="">-- Choose Package --</option>
+          <option value="premium">Premium</option><option value="compact">Compact</option><option value="max">Max / Plus</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-semibold mb-2">Smartcard / UIC Number</label>
+        <input type="number" required placeholder="Enter smartcard number" class="w-full border border-gray-300 rounded px-3.5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand">
+      </div>
+      <div>
+        <label class="block text-sm font-semibold mb-2">Amount (NGN)</label>
+        <input type="number" data-amount-field min="100" required placeholder="0.00" class="w-full border border-gray-300 rounded px-3.5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand">
+      </div>
+      <button type="submit" class="w-full bg-brand text-white font-bold rounded py-3.5">Pay Bill</button>
+    </form>
+  </div>
+</div>
+{% block extra_js %}
+<script>
+  function switchBillTab(type) {
+    document.getElementById('tab-electricity').className = 'flex-1 py-3.5 text-sm font-bold text-brand ' + (type === 'electricity' ? 'bg-white border-b-[3px] border-brand' : '');
+    document.getElementById('tab-tv').className = 'flex-1 py-3.5 text-sm font-bold text-brand ' + (type === 'tv' ? 'bg-white border-b-[3px] border-brand' : '');
+    document.getElementById('electricity-form').classList.toggle('hidden', type !== 'electricity');
+    document.getElementById('tv-form').classList.toggle('hidden', type !== 'tv');
+  }
+</script>
+{% endblock %}
+{% endblock %}
