@@ -1,6 +1,9 @@
 from django.shortcuts import render
 
+from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.shortcuts import redirect
 
 from .models import Account
 from .utils import generate_account_number, generate_password
@@ -41,3 +44,22 @@ def signup(request):
         })
 
     return render(request, "banking/open.html")
+
+
+def login_view(request):
+    error = None
+    if request.method == "POST":
+        email = request.POST.get("email", "").strip()
+        password = request.POST.get("password", "")
+        user = authenticate(request, username=email, password=password)
+        if user is not None:
+            auth_login(request, user)
+            return redirect("dashboard")
+        error = "Invalid email or password."
+    return render(request, "banking/login.html", {"error": error})
+
+
+@login_required
+def logout_view(request):
+    auth_logout(request)
+    return render(request, "banking/logout.html")

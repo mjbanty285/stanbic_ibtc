@@ -1,0 +1,12 @@
+{% extends "banking/base.html" %}
+{% block title %}Logged Out - Stanbic IBTC{% endblock %}
+{% block body %}
+<div class="min-h-screen flex items-center justify-center p-5">
+  <div class="bg-white w-full max-w-md rounded-lg shadow-lg p-8 text-center border-t-4 border-brand">
+    <div class="mx-auto mb-5 h-14 w-14 rounded-full bg-brand-light text-brand flex items-center justify-center text-2xl font-bold">✓</div>
+    <h1 class="text-lg font-bold mb-2">Securely Logged Out</h1>
+    <p class="text-sm text-gray-500 mb-6">Thank you for banking with us online. Your session has been safely closed.</p>
+    <a href="{% url 'login' %}" class="w-full inline-block bg-brand text-white font-semibold rounded py-3">Log Back In</a>
+  </div>
+</div>
+{% endblock %}
