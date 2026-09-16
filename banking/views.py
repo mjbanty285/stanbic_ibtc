@@ -63,3 +63,8 @@ def login_view(request):
 def logout_view(request):
     auth_logout(request)
     return render(request, "banking/logout.html")
+
+
+@login_required
+def dashboard(request):
+    return render(request, "banking/index.html", {"account": request.user.account})

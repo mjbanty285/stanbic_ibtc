@@ -1,0 +1,59 @@
+{% extends "banking/dashboard_base.html" %}
+{% load humanize %}
+{% block title %}Stanbic IBTC - Home{% endblock %}
+{% block content %}
+<div class="flex justify-between items-center mb-4">
+  <a href="{% url 'view_accounts' %}" class="text-xs font-semibold text-brand border border-brand rounded-full px-4 py-2">VIEW ACCOUNTS</a>
+</div>
+
+<div class="bg-gradient-to-br from-brand-light to-blue-50 rounded-xl p-4 mb-4 relative overflow-hidden">
+  <p class="text-sm text-gray-700">You can access <strong class="text-brand">EZ Cash Loan</strong> amount up to:</p>
+  <strong class="text-lg text-brand block mt-1">₦0</strong>
+  <a href="{% url 'loan' %}" class="text-sm font-semibold text-brand mt-1 inline-block">ACCESS YOUR LOAN ▸</a>
+</div>
+
+<div class="bg-white rounded-xl shadow-sm p-5 mb-5">
+  <div class="flex justify-between items-start mb-3">
+    <div class="text-sm font-semibold text-gray-800">{{ account.full_name }}</div>
+    <div class="text-xs text-gray-500 bg-gray-100 rounded-full px-2 py-0.5">1/1</div>
+  </div>
+  <div class="text-sm text-gray-500 mb-3 flex items-center gap-2">
+    {{ account.account_number }}-{{ account.get_account_type_display|upper }}
+    <button data-copy="{{ account.account_number }}" type="button" class="text-brand text-xs font-semibold">Copy</button>
+  </div>
+  <div class="flex items-center gap-2.5 mb-1">
+    <span id="balanceValue" data-value="₦{{ account.balance|intcomma }}" data-hidden="false" class="text-2xl font-bold text-gray-900">₦{{ account.balance|intcomma }}</span>
+    <button data-balance-toggle="balanceValue" type="button" class="w-6 h-6 rounded-full bg-gray-100 flex items-center justify-center text-xs">👁</button>
+  </div>
+  <p class="text-xs text-gray-500 mb-4">Available balance<br>Effective balance ₦{{ account.balance|intcomma }}</p>
+  <a href="{% url 'account_page' %}" class="w-full bg-brand text-white font-semibold rounded-lg py-3.5 text-center block">VIEW STATEMENTS</a>
+</div>
+
+<div class="text-sm font-semibold text-gray-700 mb-3">QUICK LINKS</div>
+<div class="grid grid-cols-4 gap-3 mb-5">
+  <a href="{% url 'bulk_transfer' %}" class="flex flex-col items-center gap-2 text-center">
+    <span class="w-12 h-12 rounded-2xl bg-blue-600 text-white flex items-center justify-center text-xl">📄</span>
+    <span class="text-[11px] text-gray-700 leading-tight">Bulk Transfer</span>
+  </a>
+  <a href="{% url 'electricity' %}" class="flex flex-col items-center gap-2 text-center">
+    <span class="w-12 h-12 rounded-2xl bg-cyan-500 text-white flex items-center justify-center text-xl">⚡</span>
+    <span class="text-[11px] text-gray-700 leading-tight">Electricity & TV</span>
+  </a>
+  <a href="{% url 'beneficiary_transfer' %}" class="flex flex-col items-center gap-2 text-center">
+    <span class="w-12 h-12 rounded-2xl bg-orange-500 text-white flex items-center justify-center text-xl">👥</span>
+    <span class="text-[11px] text-gray-700 leading-tight">Beneficiary Transfer</span>
+  </a>
+  <a href="{% url 'transaction_receipt' %}" class="flex flex-col items-center gap-2 text-center">
+    <span class="w-12 h-12 rounded-2xl bg-pink-500 text-white flex items-center justify-center text-xl">🧾</span>
+    <span class="text-[11px] text-gray-700 leading-tight">Transaction Receipt</span>
+  </a>
+</div>
+
+<div class="bg-brand rounded-xl p-4 flex items-center gap-3.5 text-white">
+  <div class="w-14 h-14 rounded-lg bg-brand-dark flex items-center justify-center text-2xl shrink-0">👨‍💼</div>
+  <div>
+    <h3 class="text-sm font-bold mb-1 leading-snug">HANDLE ALL YOUR BUSINESS NEEDS WITH ONE PLATFORM</h3>
+    <p class="text-xs opacity-85">Access Enterprise Online 3.0 – real-time access and control of how you manage your business finances.</p>
+  </div>
+</div>
+{% endblock %}
