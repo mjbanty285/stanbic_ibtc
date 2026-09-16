@@ -237,3 +237,15 @@ def set_pin(request):
 
     messages.success(request, "Your transaction PIN has been set.")
     return redirect("profile")
+
+
+@login_required
+@require_POST
+def verify_pin(request):
+    pin = request.POST.get("pin", "")
+    account = request.user.account
+
+    if not account.transaction_pin:
+        return JsonResponse({"valid": False})
+
+    return JsonResponse({"valid": check_password(pin, account.transaction_pin)})
