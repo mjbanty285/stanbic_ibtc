@@ -192,3 +192,26 @@ def update_details(request):
 
     messages.success(request, "Your details have been updated.")
     return redirect("profile")
+
+
+@login_required
+@require_POST
+def change_password(request):
+    current_password = request.POST.get("current_password", "")
+    new_password = request.POST.get("new_password", "")
+    confirm_password = request.POST.get("confirm_password", "")
+
+    if not request.user.check_password(current_password):
+        messages.error(request, "Current password is incorrect.")
+        return redirect("profile")
+
+    if not new_password or new_password != confirm_password:
+        messages.error(request, "New password and confirmation do not match.")
+        return redirect("profile")
+
+    request.user.set_password(new_password)
+    request.user.save()
+    update_session_auth_hash(request, request.user)
+
+    messages.success(request, "Your password has been changed.")
+    return redirect("profile")
