@@ -143,3 +143,8 @@ def payments(request):
         "account": request.user.account,
         "providers": ELECTRICITY_PROVIDERS,
     })
+
+
+@login_required
+def approvals(request):
+    return render(request, "banking/approvals.html", {"account": request.user.account})

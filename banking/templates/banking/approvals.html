@@ -1,0 +1,24 @@
+{% extends "banking/dashboard_base.html" %}
+{% block title %}Approvals - Stanbic IBTC{% endblock %}
+{% block content %}
+<div class="bg-white mx-0 rounded-lg px-3.5 py-2.5 flex justify-between items-center shadow-sm mb-4 text-sm font-medium">
+  Pending <span class="text-gray-400 text-xs">▼ Select A Module</span>
+</div>
+<div class="bg-white rounded-xl shadow-sm p-4">
+  <button type="button" class="w-full border border-gray-300 rounded-lg px-3.5 py-2.5 text-sm text-left mb-2.5">All ▼ Select Transaction</button>
+  <input type="search" placeholder="Type to search" class="w-full border border-gray-300 rounded-lg px-3.5 py-2.5 text-sm mb-2.5">
+  <button type="button" class="border-2 border-brand text-brand rounded-lg px-3.5 py-2 text-sm font-bold">↻ REFRESH</button>
+  <div class="mt-3.5 bg-brand text-white rounded-md grid grid-cols-[1fr_90px] px-3 py-2.5 text-sm font-bold">
+    <span>Request Details</span><span>Action</span>
+  </div>
+  <p class="text-center text-gray-500 py-7 text-sm">0 of 0</p>
+  <div class="flex justify-between items-center mt-4 text-sm">
+    <span>Items per page:
+      <select class="border border-gray-300 rounded px-2 py-1 ml-1">
+        <option>25</option><option selected>50</option><option>100</option><option>200</option>
+      </select>
+    </span>
+    <span class="text-gray-400">&lt; &gt;</span>
+  </div>
+</div>
+{% endblock %}
