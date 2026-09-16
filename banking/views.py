@@ -78,3 +78,8 @@ def account_page(request):
 @login_required
 def view_accounts(request):
     return render(request, "banking/view_accounts.html", {"account": request.user.account})
+
+
+@login_required
+def transfer(request):
+    return render(request, "banking/transfer.html", {"account": request.user.account})

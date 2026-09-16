@@ -1,0 +1,62 @@
+{% extends "banking/dashboard_base.html" %}
+{% load humanize %}
+{% block title %}Domestic Transfer - Stanbic IBTC{% endblock %}
+{% block content %}
+<div class="bg-white rounded-xl shadow-sm p-4 mb-4">
+  <h2 class="text-lg font-bold mb-1">Domestic Transfer</h2>
+  <p class="text-sm text-gray-500 mb-5">Select a transfer type</p>
+
+  <div class="grid grid-cols-3 gap-4 mb-6" id="typeGrid">
+    <button type="button" data-type="other" class="type-btn flex flex-col items-center gap-1.5 text-center">
+      <span class="w-[52px] h-[52px] rounded-full bg-brand text-white flex items-center justify-center text-xl ring-4 ring-blue-400">🏦</span>
+      <span class="text-xs text-gray-700">Other Banks</span>
+    </button>
+    <button type="button" data-type="beneficiary" class="type-btn flex flex-col items-center gap-1.5 text-center">
+      <span class="w-[52px] h-[52px] rounded-full bg-brand text-white flex items-center justify-center text-xl">👤</span>
+      <span class="text-xs text-gray-700">Beneficiary</span>
+    </button>
+    <button type="button" data-type="stanbic" class="type-btn flex flex-col items-center gap-1.5 text-center">
+      <span class="w-[52px] h-[52px] rounded-full bg-brand text-white flex items-center justify-center text-xl">⇄</span>
+      <span class="text-xs text-gray-700">Stanbic IBTC Account</span>
+    </button>
+  </div>
+
+  <p class="text-sm text-gray-600 mb-4">Available Limit: <strong class="text-brand">₦250,000,000</strong><br>Per Transaction Limit: <strong class="text-brand">₦250,000,000</strong></p>
+
+  <form data-fake-transaction data-balance="{{ account.balance }}" class="space-y-4">
+    <div>
+      <label class="block text-sm font-medium text-gray-600 mb-1.5">Select Account to Debit *</label>
+      <select required class="w-full border border-gray-300 rounded-lg px-3.5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand">
+        <option value="{{ account.account_number }}">{{ account.account_number }}-{{ account.get_account_type_display|upper }}</option>
+      </select>
+    </div>
+    <div>
+      <label class="block text-sm font-medium text-gray-600 mb-1.5">Amount *</label>
+      <input type="number" data-amount-field min="1" step="0.01" required placeholder="0.00" class="w-full border border-gray-300 rounded-lg px-3.5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand">
+    </div>
+    <div>
+      <label class="block text-sm font-medium text-gray-600 mb-1.5">Recipient Account *</label>
+      <input type="text" required placeholder="Account number" class="w-full border border-gray-300 rounded-lg px-3.5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand">
+    </div>
+    <div>
+      <label class="block text-sm font-medium text-gray-600 mb-1.5">Recipient Bank *</label>
+      <select required class="w-full border border-gray-300 rounded-lg px-3.5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand">
+        <option value="">Select bank</option>
+        <option>Access Bank</option><option>First Bank</option><option>GTBank</option><option>UBA</option><option>Zenith Bank</option>
+      </select>
+    </div>
+    <button type="submit" class="w-full bg-brand text-white font-semibold rounded-lg py-3.5 mt-2">Continue</button>
+  </form>
+</div>
+<p class="bg-amber-50 text-amber-700 text-xs rounded-lg p-3">This is a prototype only. No real transfer occurs.</p>
+{% block extra_js %}
+<script>
+  document.querySelectorAll('#typeGrid .type-btn span:first-child').forEach(function (circle) {
+    circle.parentElement.addEventListener('click', function () {
+      document.querySelectorAll('#typeGrid span:first-child').forEach(function (c) { c.classList.remove('ring-4'); });
+      circle.classList.add('ring-4');
+    });
+  });
+</script>
+{% endblock %}
+{% endblock %}
