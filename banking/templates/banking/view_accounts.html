@@ -1,0 +1,33 @@
+{% extends "banking/dashboard_base.html" %}
+{% load humanize %}
+{% block title %}View Account - Stanbic IBTC{% endblock %}
+{% block content %}
+<div class="bg-white rounded-xl shadow-sm p-5 mb-4 border-l-4 border-brand">
+  <div class="text-xs uppercase tracking-wide text-gray-500 mb-1">{{ account.get_account_type_display }}</div>
+  <div class="text-sm text-gray-600 mb-4">Account Number: {{ account.account_number }}</div>
+  <div class="text-xs text-gray-500">Available Balance</div>
+  <div class="text-3xl font-bold text-brand mt-1">₦{{ account.balance|intcomma }}</div>
+</div>
+
+<div class="bg-white rounded-xl shadow-sm p-5">
+  <h2 class="text-base font-semibold text-brand border-b-2 border-brand-light pb-2.5 mb-4">Recent Transactions</h2>
+  <div class="overflow-x-auto">
+    <table class="w-full text-sm">
+      <thead>
+        <tr class="text-left text-brand bg-brand-light">
+          <th class="p-2.5">Date</th>
+          <th class="p-2.5">Description</th>
+          <th class="p-2.5 text-right">Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="border-b border-gray-100">
+          <td class="p-2.5">24 Aug 2026</td>
+          <td class="p-2.5">Mobile App Transfer to Access Bank</td>
+          <td class="p-2.5 text-right text-green-600 font-semibold">+₦{{ account.balance|intcomma }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
