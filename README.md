@@ -27,3 +27,23 @@ python manage.py runserver
 ```
 
 Visit http://127.0.0.1:8000/ — sign up via "Open an Account" to get a generated account number and password, then log in.
+
+## Running with Docker
+
+Build and run:
+
+```bash
+docker compose up --build
+```
+
+Then open http://127.0.0.1:8000/.
+
+Useful commands:
+
+```bash
+# stop containers
+docker compose down
+
+# rebuild after code/dependency changes
+docker compose up --build
+```
