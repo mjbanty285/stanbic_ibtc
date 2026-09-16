@@ -1,0 +1,39 @@
+{% extends "banking/dashboard_base.html" %}
+{% block title %}View Profile - Stanbic IBTC{% endblock %}
+{% block content %}
+<div class="bg-white rounded-xl shadow-sm overflow-hidden">
+  <div class="bg-gradient-to-br from-brand to-accent text-white text-center px-5 py-7">
+    <div class="relative w-24 h-24 mx-auto mb-3">
+      <div class="w-full h-full rounded-full bg-white text-brand font-bold text-3xl flex items-center justify-center border-4 border-white/60">
+        {{ account.full_name|slice:":2"|upper }}
+      </div>
+      <span class="absolute bottom-0 right-0 bg-teal-400 text-white text-[10px] font-bold px-2 py-0.5 rounded-full border-2 border-brand">VERIFIED</span>
+    </div>
+    <h2 class="text-lg font-semibold">{{ account.full_name }}</h2>
+    <p class="text-sm opacity-90">Acc No: {{ account.account_number }}</p>
+  </div>
+  <div class="p-5">
+    <div class="text-xs uppercase text-gray-400 tracking-wide border-b border-gray-100 pb-1.5 mb-4">Personal Information</div>
+    <div class="flex justify-between items-center mb-4 text-sm">
+      <span class="text-gray-500">Email Address</span><span class="font-semibold">{{ account.user.email }}</span>
+    </div>
+    <div class="flex justify-between items-center mb-4 text-sm">
+      <span class="text-gray-500">Phone Number</span><span class="font-semibold">{{ account.phone }}</span>
+    </div>
+    <div class="flex justify-between items-center mb-6 text-sm">
+      <span class="text-gray-500">BVN</span><span class="font-semibold">{{ account.bvn|slice:":3" }}******{{ account.bvn|slice:"-2:" }}</span>
+    </div>
+    <div class="text-xs uppercase text-gray-400 tracking-wide border-b border-gray-100 pb-1.5 mb-4">Account Details</div>
+    <div class="flex justify-between items-center mb-4 text-sm">
+      <span class="text-gray-500">Account Type</span><span class="font-semibold">{{ account.get_account_type_display }}</span>
+    </div>
+    <div class="flex justify-between items-center text-sm">
+      <span class="text-gray-500">Branch</span><span class="font-semibold">Walter Carrington, Lagos</span>
+    </div>
+  </div>
+  <div class="flex gap-3 px-5 pb-5">
+    <button type="button" class="flex-1 border border-brand text-brand rounded-md py-2.5 text-sm font-semibold">Edit Profile</button>
+    <a href="{% url 'dashboard' %}" class="flex-1 bg-brand text-white rounded-md py-2.5 text-sm font-semibold text-center">Back to Dashboard</a>
+  </div>
+</div>
+{% endblock %}

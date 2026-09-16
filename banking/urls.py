@@ -19,4 +19,5 @@ urlpatterns = [
     path("payments/", views.payments, name="payments"),
     path("approvals/", views.approvals, name="approvals"),
     path("profile/", views.profile, name="profile"),
+    path("profile/view/", views.view_profile, name="view_profile"),
 ]

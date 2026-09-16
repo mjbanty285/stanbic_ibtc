@@ -153,3 +153,8 @@ def approvals(request):
 @login_required
 def profile(request):
     return render(request, "banking/profile.html", {"account": request.user.account})
+
+
+@login_required
+def view_profile(request):
+    return render(request, "banking/view_profile.html", {"account": request.user.account})
