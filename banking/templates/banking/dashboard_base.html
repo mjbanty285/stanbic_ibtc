@@ -1,13 +1,21 @@
 {% extends "banking/base.html" %}
 {% block body %}
-<div class="max-w-md mx-auto bg-gray-100 min-h-screen relative pb-20">
+<div class="max-w-md mx-auto bg-gray-100 min-h-screen relative pb-20" data-has-pin="{{ request.user.account.transaction_pin|yesno:'true,false' }}">
   {% include "banking/_sidemenu.html" %}
   {% include "banking/_header.html" %}
   <main class="px-4 pt-4">
+    {% if messages %}
+      <div class="mb-4 space-y-2">
+        {% for message in messages %}
+          <div class="rounded-lg px-4 py-3 text-sm {% if message.tags == 'error' %}bg-red-50 text-red-700{% else %}bg-green-50 text-green-700{% endif %}">{{ message }}</div>
+        {% endfor %}
+      </div>
+    {% endif %}
     {% block content %}{% endblock %}
   </main>
   {% include "banking/_bottomnav.html" %}
   {% include "banking/_processing_overlay.html" %}
+  {% include "banking/_pin_modal.html" %}
 </div>
 {% block extra_js %}{% endblock %}
 {% endblock %}
