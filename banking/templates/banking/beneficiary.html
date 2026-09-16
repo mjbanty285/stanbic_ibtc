@@ -1,0 +1,74 @@
+{% extends "banking/dashboard_base.html" %}
+{% load humanize %}
+{% block title %}Beneficiary Transfer - Stanbic IBTC{% endblock %}
+{% block content %}
+<div class="bg-white rounded-xl shadow-sm overflow-hidden mb-4">
+  <div class="bg-gradient-to-br from-brand-dark to-brand text-white text-center px-6 py-6">
+    <h1 class="text-lg font-semibold">Beneficiary Transfer</h1>
+    <p class="text-xs opacity-90 mt-1">Move funds securely to saved or new accounts</p>
+  </div>
+  <form data-fake-transaction data-balance="{{ account.balance }}" class="p-5 space-y-4">
+    <div>
+      <label class="block text-sm font-medium text-gray-600 mb-1.5">From Account</label>
+      <select required class="w-full border border-gray-300 rounded-lg px-3.5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand">
+        <option value="{{ account.account_number }}">{{ account.account_number }}-{{ account.get_account_type_display|upper }} (₦{{ account.balance|intcomma }})</option>
+      </select>
+    </div>
+    <div>
+      <label class="block text-sm font-medium text-gray-600 mb-1.5">Beneficiary Type</label>
+      <select id="beneficiary-type" onchange="toggleBeneficiaryForm()" class="w-full border border-gray-300 rounded-lg px-3.5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand">
+        <option value="saved">Saved Beneficiary</option>
+        <option value="new">New Beneficiary</option>
+      </select>
+    </div>
+    <div id="saved-beneficiary-group">
+      <label class="block text-sm font-medium text-gray-600 mb-1.5">Select Beneficiary</label>
+      <select class="w-full border border-gray-300 rounded-lg px-3.5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand">
+        <option value="">Choose a beneficiary</option>
+        {% for b in beneficiaries %}
+          <option value="{{ b.id }}">{{ b.name }} - {{ b.bank }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div id="new-beneficiary-fields" class="hidden space-y-4">
+      <div>
+        <label class="block text-sm font-medium text-gray-600 mb-1.5">Destination Bank</label>
+        <select class="w-full border border-gray-300 rounded-lg px-3.5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand">
+          <option value="">Select Bank</option><option>Stanbic IBTC Bank</option><option>Access Bank</option><option>Guaranty Trust Bank</option><option>Zenith Bank</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-600 mb-1.5">Account Number</label>
+        <input type="text" id="new-account-number" oninput="simulateNameLookup()" maxlength="10" placeholder="Enter 10-digit number" class="w-full border border-gray-300 rounded-lg px-3.5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand">
+        <div id="account-lookup-name" class="hidden bg-brand-light border border-dashed border-accent text-brand text-xs rounded p-3 mt-2">Target Name: <strong>CHIDI OPARA BENJAMIN</strong></div>
+      </div>
+    </div>
+    <div>
+      <label class="block text-sm font-medium text-gray-600 mb-1.5">Amount</label>
+      <div class="relative">
+        <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-500 font-bold">₦</span>
+        <input type="number" data-amount-field min="100" required placeholder="0.00" class="w-full border border-gray-300 rounded-lg pl-9 pr-3.5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand">
+      </div>
+    </div>
+    <div>
+      <label class="block text-sm font-medium text-gray-600 mb-1.5">Narration / Remarks</label>
+      <textarea rows="2" placeholder="Optional transfer memo" class="w-full border border-gray-300 rounded-lg px-3.5 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand"></textarea>
+    </div>
+    <button type="submit" class="w-full bg-brand text-white font-semibold rounded-lg py-3.5">Continue</button>
+  </form>
+  <p class="text-center text-xs text-gray-500 px-5 pb-5 border-t border-gray-100 pt-4">Stanbic IBTC Bank Blue Rewards. Secure Banking Layer Active.</p>
+</div>
+{% block extra_js %}
+<script>
+  function toggleBeneficiaryForm() {
+    const type = document.getElementById('beneficiary-type').value;
+    document.getElementById('saved-beneficiary-group').classList.toggle('hidden', type === 'new');
+    document.getElementById('new-beneficiary-fields').classList.toggle('hidden', type !== 'new');
+  }
+  function simulateNameLookup() {
+    const accNum = document.getElementById('new-account-number').value;
+    document.getElementById('account-lookup-name').classList.toggle('hidden', accNum.length !== 10);
+  }
+</script>
+{% endblock %}
+{% endblock %}

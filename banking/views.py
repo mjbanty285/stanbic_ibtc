@@ -83,3 +83,18 @@ def view_accounts(request):
 @login_required
 def transfer(request):
     return render(request, "banking/transfer.html", {"account": request.user.account})
+
+
+SAVED_BENEFICIARIES = [
+    {"id": 1, "name": "John Doe", "bank": "Stanbic IBTC"},
+    {"id": 2, "name": "Jane Smith", "bank": "GTBank"},
+    {"id": 3, "name": "Aliko Dangote", "bank": "Access Bank"},
+]
+
+
+@login_required
+def beneficiary_transfer(request):
+    return render(request, "banking/beneficiary.html", {
+        "account": request.user.account,
+        "beneficiaries": SAVED_BENEFICIARIES,
+    })
