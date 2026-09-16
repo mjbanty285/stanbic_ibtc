@@ -16,4 +16,5 @@ urlpatterns = [
     path("airtime/", views.airtime, name="airtime"),
     path("electricity/", views.electricity, name="electricity"),
     path("loan/", views.loan, name="loan"),
+    path("payments/", views.payments, name="payments"),
 ]

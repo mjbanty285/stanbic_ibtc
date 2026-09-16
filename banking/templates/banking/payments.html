@@ -1,0 +1,15 @@
+{% extends "banking/dashboard_base.html" %}
+{% block title %}Payments - Stanbic IBTC{% endblock %}
+{% block content %}
+<div class="bg-white mx-0 rounded-lg px-3.5 py-2.5 flex justify-between items-center shadow-sm mb-4 text-sm font-medium">
+  Electricity <span class="text-gray-400 text-xs">▼ Select a module</span>
+</div>
+<div class="bg-white rounded-xl shadow-sm overflow-hidden">
+  <div class="p-3">
+    <input type="search" placeholder="search" class="w-full border border-gray-300 rounded-lg px-3.5 py-2.5 text-sm">
+  </div>
+  {% for provider in providers %}
+    <button type="button" class="w-full flex justify-between px-4 py-3.5 text-xs font-semibold border-t border-gray-100 text-left">{{ provider|upper }} <span class="text-gray-400">›</span></button>
+  {% endfor %}
+</div>
+{% endblock %}

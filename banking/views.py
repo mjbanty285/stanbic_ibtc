@@ -121,3 +121,25 @@ def electricity(request):
 @login_required
 def loan(request):
     return render(request, "banking/loan.html", {"account": request.user.account})
+
+
+ELECTRICITY_PROVIDERS = [
+    "Abuja Electricity Distribution Company",
+    "Benin Electricity Distribution Company",
+    "Eko Electricity Distribution Company",
+    "Enugu Electricity Distribution Company",
+    "Ibadan Electricity Distribution Company",
+    "Ikeja Electricity Distribution Company",
+    "Jos Electricity Distribution Company",
+    "Kaduna Electricity Distribution Company",
+    "Kano Electricity Distribution Company",
+    "Port Harcourt Electricity Distribution Company",
+]
+
+
+@login_required
+def payments(request):
+    return render(request, "banking/payments.html", {
+        "account": request.user.account,
+        "providers": ELECTRICITY_PROVIDERS,
+    })
