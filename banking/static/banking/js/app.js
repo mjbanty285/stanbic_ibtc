@@ -31,6 +31,72 @@ function initFakeTransactionForms() {
   const processing = document.getElementById('processingState');
   const success = document.getElementById('successState');
   const doneBtn = document.getElementById('processingDoneBtn');
+  const pinModal = document.getElementById('pinModal');
+  const pinInput = document.getElementById('pinModalInput');
+  const pinError = document.getElementById('pinModalError');
+  const pinSubmit = document.getElementById('pinModalSubmit');
+  const pinCancel = document.getElementById('pinModalCancel');
+
+  function showProcessingOverlay() {
+    if (!overlay) return;
+    overlay.classList.remove('hidden');
+    overlay.classList.add('flex');
+    processing.classList.remove('hidden');
+    success.classList.add('hidden');
+
+    setTimeout(function () {
+      processing.classList.add('hidden');
+      success.classList.remove('hidden');
+    }, 10000);
+  }
+
+  function hasPin() {
+    const wrapper = document.querySelector('[data-has-pin]');
+    return !!wrapper && wrapper.dataset.hasPin === 'true';
+  }
+
+  function showPinModal(onVerified) {
+    if (!pinModal) { onVerified(); return; }
+    pinInput.value = '';
+    pinError.classList.add('hidden');
+    pinModal.classList.remove('hidden');
+    pinModal.classList.add('flex');
+
+    function cleanup() {
+      pinModal.classList.add('hidden');
+      pinModal.classList.remove('flex');
+      pinSubmit.removeEventListener('click', onSubmit);
+      pinCancel.removeEventListener('click', onCancel);
+    }
+
+    function onCancel() {
+      cleanup();
+    }
+
+    function onSubmit() {
+      const csrfToken = pinModal.querySelector('[name=csrfmiddlewaretoken]').value;
+      const body = new FormData();
+      body.append('pin', pinInput.value);
+      fetch('/profile/verify-pin/', {
+        method: 'POST',
+        headers: { 'X-CSRFToken': csrfToken },
+        body: body,
+      })
+        .then(function (res) { return res.json(); })
+        .then(function (data) {
+          if (data.valid) {
+            cleanup();
+            onVerified();
+          } else {
+            pinError.classList.remove('hidden');
+            pinInput.value = '';
+          }
+        });
+    }
+
+    pinSubmit.addEventListener('click', onSubmit);
+    pinCancel.addEventListener('click', onCancel);
+  }
 
   document.querySelectorAll('form[data-fake-transaction]').forEach(function (form) {
     form.addEventListener('submit', function (e) {
@@ -55,16 +121,11 @@ function initFakeTransactionForms() {
         }
       }
 
-      if (!overlay) return;
-      overlay.classList.remove('hidden');
-      overlay.classList.add('flex');
-      processing.classList.remove('hidden');
-      success.classList.add('hidden');
-
-      setTimeout(function () {
-        processing.classList.add('hidden');
-        success.classList.remove('hidden');
-      }, 10000);
+      if (hasPin()) {
+        showPinModal(showProcessingOverlay);
+      } else {
+        showProcessingOverlay();
+      }
     });
   });
 
