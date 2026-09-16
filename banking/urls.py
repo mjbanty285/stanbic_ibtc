@@ -12,4 +12,5 @@ urlpatterns = [
     path("view-accounts/", views.view_accounts, name="view_accounts"),
     path("transfer/", views.transfer, name="transfer"),
     path("beneficiary/", views.beneficiary_transfer, name="beneficiary_transfer"),
+    path("bulk-transfer/", views.bulk_transfer, name="bulk_transfer"),
 ]

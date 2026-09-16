@@ -1,0 +1,61 @@
+{% extends "banking/dashboard_base.html" %}
+{% load humanize %}
+{% block title %}Bulk Transfer - Stanbic IBTC{% endblock %}
+{% block content %}
+<h1 class="text-lg font-bold text-brand mb-4">Bulk Transfer Management</h1>
+
+<div class="grid grid-cols-2 gap-3 mb-4">
+  <div class="bg-white rounded-lg shadow-sm p-4 border-l-4 border-brand">
+    <h3 class="text-xs uppercase text-gray-500 mb-1.5">Source Account</h3>
+    <p class="text-base font-bold">{{ account.account_number }}</p>
+  </div>
+  <div class="bg-white rounded-lg shadow-sm p-4 border-l-4 border-brand">
+    <h3 class="text-xs uppercase text-gray-500 mb-1.5">Available Balance</h3>
+    <p class="text-base font-bold">₦{{ account.balance|intcomma }}</p>
+  </div>
+  <div class="bg-white rounded-lg shadow-sm p-4 border-l-4 border-brand">
+    <h3 class="text-xs uppercase text-gray-500 mb-1.5">Beneficiaries</h3>
+    <p class="text-base font-bold">{{ beneficiaries|length }} Available</p>
+  </div>
+  <div class="bg-white rounded-lg shadow-sm p-4 border-l-4 border-brand">
+    <h3 class="text-xs uppercase text-gray-500 mb-1.5">Total Transfer Amount</h3>
+    <p class="text-base font-bold">₦0.00</p>
+  </div>
+</div>
+
+<div class="bg-white rounded-lg shadow-sm p-5 mb-4">
+  <h2 class="text-sm font-semibold text-brand border-b border-gray-200 pb-2 mb-4">Option 1: Upload Bulk File</h2>
+  <div onclick="document.getElementById('excelFile').click()" class="border-2 border-dashed border-brand bg-brand-light rounded-lg p-8 text-center cursor-pointer mb-3">
+    <p class="text-brand font-medium text-sm">Click here to browse your CSV / Excel schedule</p>
+    <input type="file" id="excelFile" class="hidden" accept=".csv,.xlsx,.xls">
+  </div>
+  <a href="#" class="text-xs font-semibold text-brand">📥 Download Bulk Transfer Template (.CSV)</a>
+</div>
+
+<form data-fake-transaction data-balance="{{ account.balance }}" class="bg-white rounded-lg shadow-sm p-5 mb-4">
+  <h2 class="text-sm font-semibold text-brand border-b border-gray-200 pb-2 mb-4">Option 2: Manual Beneficiary Entry</h2>
+  <div class="overflow-x-auto mb-4">
+    <table class="w-full text-xs">
+      <thead>
+        <tr class="bg-brand-light text-brand text-left">
+          <th class="p-2">Bank</th><th class="p-2">Account No.</th><th class="p-2">Name</th><th class="p-2">Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for b in beneficiaries %}
+        <tr class="border-b border-gray-100">
+          <td class="p-2">{{ b.bank }}</td>
+          <td class="p-2"><input type="text" placeholder="10 digits" maxlength="10" class="w-full border border-gray-300 rounded px-2 py-1.5"></td>
+          <td class="p-2"><input type="text" value="{{ b.name }}" disabled class="w-full border border-gray-300 rounded px-2 py-1.5 bg-gray-50"></td>
+          <td class="p-2"><input type="number" data-amount-field placeholder="0.00" class="w-full border border-gray-300 rounded px-2 py-1.5"></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <div class="flex justify-end gap-3">
+    <button type="button" class="px-5 py-2.5 rounded bg-gray-200 text-sm font-semibold">Save Draft</button>
+    <button type="submit" class="px-5 py-2.5 rounded bg-brand text-white text-sm font-semibold">Submit for Approval</button>
+  </div>
+</form>
+{% endblock %}

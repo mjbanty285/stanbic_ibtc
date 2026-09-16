@@ -98,3 +98,11 @@ def beneficiary_transfer(request):
         "account": request.user.account,
         "beneficiaries": SAVED_BENEFICIARIES,
     })
+
+
+@login_required
+def bulk_transfer(request):
+    return render(request, "banking/bulk.html", {
+        "account": request.user.account,
+        "beneficiaries": SAVED_BENEFICIARIES,
+    })
