@@ -1,0 +1,15 @@
+{% extends "banking/dashboard_base.html" %}
+{% block title %}Profile Management - Stanbic IBTC{% endblock %}
+{% block content %}
+<div class="bg-white mx-0 rounded-lg px-3.5 py-2.5 flex justify-between items-center shadow-sm mb-4 text-sm font-medium">
+  Profile Management <span class="text-gray-400 text-xs">▼ Select</span>
+</div>
+<div class="bg-white rounded-xl shadow-sm p-4">
+  <h2 class="text-base font-semibold mb-3">Profile Management</h2>
+  <a href="{% url 'view_profile' %}" class="block bg-gray-50 border border-gray-200 rounded-lg px-4 py-3.5 mb-2.5 text-sm">View Profile</a>
+  <button type="button" class="w-full text-left bg-gray-50 border border-gray-200 rounded-lg px-4 py-3.5 mb-2.5 text-sm">Update Contact Details</button>
+  <button type="button" class="w-full text-left bg-gray-50 border border-gray-200 rounded-lg px-4 py-3.5 mb-2.5 text-sm">Change Password</button>
+  <button type="button" class="w-full text-left bg-gray-50 border border-gray-200 rounded-lg px-4 py-3.5 mb-2.5 text-sm">Transaction PIN</button>
+  <button type="button" class="w-full text-left bg-gray-50 border border-gray-200 rounded-lg px-4 py-3.5 text-sm">Linked Devices</button>
+</div>
+{% endblock %}
