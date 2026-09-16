@@ -7,9 +7,59 @@
 <div class="bg-white rounded-xl shadow-sm p-4">
   <h2 class="text-base font-semibold mb-3">Profile Management</h2>
   <a href="{% url 'view_profile' %}" class="block bg-gray-50 border border-gray-200 rounded-lg px-4 py-3.5 mb-2.5 text-sm">View Profile</a>
-  <button type="button" class="w-full text-left bg-gray-50 border border-gray-200 rounded-lg px-4 py-3.5 mb-2.5 text-sm">Update Contact Details</button>
-  <button type="button" class="w-full text-left bg-gray-50 border border-gray-200 rounded-lg px-4 py-3.5 mb-2.5 text-sm">Change Password</button>
-  <button type="button" class="w-full text-left bg-gray-50 border border-gray-200 rounded-lg px-4 py-3.5 mb-2.5 text-sm">Transaction PIN</button>
-  <button type="button" class="w-full text-left bg-gray-50 border border-gray-200 rounded-lg px-4 py-3.5 text-sm">Linked Devices</button>
+
+  <button type="button" onclick="document.getElementById('detailsForm').classList.toggle('hidden')" class="w-full text-left bg-gray-50 border border-gray-200 rounded-lg px-4 py-3.5 mb-2.5 text-sm">Update Details</button>
+  <form method="POST" action="{% url 'update_details' %}" id="detailsForm" class="hidden mb-2.5 bg-gray-50 border border-gray-200 rounded-lg p-4 space-y-3">
+    {% csrf_token %}
+    <div>
+      <label class="block text-xs font-medium text-gray-600 mb-1">Full Name</label>
+      <input type="text" name="full_name" value="{{ account.full_name }}" required class="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm">
+    </div>
+    <div>
+      <label class="block text-xs font-medium text-gray-600 mb-1">Phone</label>
+      <input type="text" name="phone" value="{{ account.phone }}" required class="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm">
+    </div>
+    <div>
+      <label class="block text-xs font-medium text-gray-600 mb-1">Email</label>
+      <input type="email" name="email" value="{{ account.user.email }}" required class="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm">
+    </div>
+    <div>
+      <label class="block text-xs font-medium text-gray-600 mb-1">BVN</label>
+      <input type="text" name="bvn" value="{{ account.bvn }}" maxlength="11" required class="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm">
+    </div>
+    <button type="submit" class="w-full bg-brand text-white rounded-lg py-2.5 text-sm font-semibold">Save Details</button>
+  </form>
+
+  <button type="button" onclick="document.getElementById('passwordForm').classList.toggle('hidden')" class="w-full text-left bg-gray-50 border border-gray-200 rounded-lg px-4 py-3.5 mb-2.5 text-sm">Change Password</button>
+  <form method="POST" action="{% url 'change_password' %}" id="passwordForm" class="hidden mb-2.5 bg-gray-50 border border-gray-200 rounded-lg p-4 space-y-3">
+    {% csrf_token %}
+    <div>
+      <label class="block text-xs font-medium text-gray-600 mb-1">Current Password</label>
+      <input type="password" name="current_password" required class="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm">
+    </div>
+    <div>
+      <label class="block text-xs font-medium text-gray-600 mb-1">New Password</label>
+      <input type="password" name="new_password" required class="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm">
+    </div>
+    <div>
+      <label class="block text-xs font-medium text-gray-600 mb-1">Confirm New Password</label>
+      <input type="password" name="confirm_password" required class="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm">
+    </div>
+    <button type="submit" class="w-full bg-brand text-white rounded-lg py-2.5 text-sm font-semibold">Save Password</button>
+  </form>
+
+  <button type="button" onclick="document.getElementById('pinForm').classList.toggle('hidden')" class="w-full text-left bg-gray-50 border border-gray-200 rounded-lg px-4 py-3.5 text-sm">Transaction PIN</button>
+  <form method="POST" action="{% url 'set_pin' %}" id="pinForm" class="hidden mt-2.5 bg-gray-50 border border-gray-200 rounded-lg p-4 space-y-3">
+    {% csrf_token %}
+    <div>
+      <label class="block text-xs font-medium text-gray-600 mb-1">New 4-Digit PIN</label>
+      <input type="password" name="pin" inputmode="numeric" pattern="[0-9]{4}" maxlength="4" required class="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm">
+    </div>
+    <div>
+      <label class="block text-xs font-medium text-gray-600 mb-1">Confirm PIN</label>
+      <input type="password" name="confirm_pin" inputmode="numeric" pattern="[0-9]{4}" maxlength="4" required class="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm">
+    </div>
+    <button type="submit" class="w-full bg-brand text-white rounded-lg py-2.5 text-sm font-semibold">Save PIN</button>
+  </form>
 </div>
 {% endblock %}
