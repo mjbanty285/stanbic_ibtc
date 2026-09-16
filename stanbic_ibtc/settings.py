@@ -37,6 +37,15 @@ ALLOWED_HOSTS = [
     if host.strip()
 ]
 
+# CSRF's Origin check is separate from ALLOWED_HOSTS and needs full scheme://host
+# entries, not bare hostnames. Derive them from ALLOWED_HOSTS so a host only has
+# to be configured once.
+CSRF_TRUSTED_ORIGINS = [
+    f"https://{host.removeprefix('https://').removeprefix('http://')}"
+    for host in ALLOWED_HOSTS
+    if host not in {"127.0.0.1", "localhost"}
+]
+
 
 # Application definition
 
