@@ -158,3 +158,8 @@ def profile(request):
 @login_required
 def view_profile(request):
     return render(request, "banking/view_profile.html", {"account": request.user.account})
+
+
+@login_required
+def transaction_receipt(request):
+    return render(request, "banking/transaction.html", {"account": request.user.account})

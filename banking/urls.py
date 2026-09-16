@@ -20,4 +20,5 @@ urlpatterns = [
     path("approvals/", views.approvals, name="approvals"),
     path("profile/", views.profile, name="profile"),
     path("profile/view/", views.view_profile, name="view_profile"),
+    path("transaction/", views.transaction_receipt, name="transaction_receipt"),
 ]
