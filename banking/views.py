@@ -1,9 +1,13 @@
 from django.shortcuts import render
 
-from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
+from django.contrib import messages
+from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.hashers import check_password, make_password
 from django.contrib.auth.models import User
+from django.http import JsonResponse
 from django.shortcuts import redirect
+from django.views.decorators.http import require_POST
 
 from .models import Account
 from .utils import generate_account_number, generate_password
@@ -163,3 +167,28 @@ def view_profile(request):
 @login_required
 def transaction_receipt(request):
     return render(request, "banking/transaction.html", {"account": request.user.account})
+
+
+@login_required
+@require_POST
+def update_details(request):
+    account = request.user.account
+    full_name = request.POST.get("full_name", "").strip()
+    phone = request.POST.get("phone", "").strip()
+    bvn = request.POST.get("bvn", "").strip()
+    email = request.POST.get("email", "").strip()
+
+    if not full_name or not phone or not bvn or not email:
+        messages.error(request, "All fields are required.")
+        return redirect("profile")
+
+    account.full_name = full_name
+    account.phone = phone
+    account.bvn = bvn
+    account.save()
+
+    request.user.email = email
+    request.user.save()
+
+    messages.success(request, "Your details have been updated.")
+    return redirect("profile")
